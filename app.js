@@ -1,112 +1,193 @@
-// CONFIG: Paste your .m3u playlist link or relative local file path here
-const M3U_PLAYLIST_URL = 'https://raw.githubusercontent.com/iptv-org/iptv/master/streams/us.m3u'; 
-
-let channels = [];
-const videoPlayer = document.getElementById('player');
-const channelList = document.getElementById('channelList');
-const searchBar = document.getElementById('searchBar');
-
-// 1. Fetch and Parse the M3U Playlist file
-async function loadPlaylist() {
-    try {
-        const response = await fetch(M3U_PLAYLIST_URL);
-        if (!response.ok) throw new Error('Network response failure.');
-        const m3uText = await response.text();
-        
-        channels = parseM3U(m3uText);
-        displayChannels(channels);
-        
-        // Auto-play the first channel if available
-        if (channels.length > 0) {
-            playStream(channels[0].link);
+// Anti-inspection Layer
+(function() {
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) || (e.ctrlKey && e.key.toLowerCase() === 'u')) {
+            e.preventDefault();
+            return false;
         }
-    } catch (error) {
-        console.error('Error loading M3U playlist:', error);
-        channelList.innerHTML = '<div class="no-match">Failed to load playlist. Check URL or CORS settings.</div>';
+    });
+})();
+
+const player = document.getElementById('live-tv-player');
+let currentHls = null;
+const DEFAULT_LOGO = 'https://images.unsplash.com/photo-1595624871930-6e8537998592?w=100&auto=format&fit=crop&q=60';
+let allChannels = [];
+
+// Base64 Obfuscated Playlists & Fallback CORS Proxies
+const _0x4f2a = [
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0ZhaGFka2hhbjQxMC9iZHRlc3QvcmVmcy9oZWFkcy9tYWluL2NoYS5tM3U=",
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0FidXNhZWVpZHgvQkR4VFYvcmVmcy9oZWFkcy9tYWluL2NoYW5uZWxzX3BsMi5tM3U=",
+    "aHR0cHM6Ly9hcGkuYWxsb3JpZ2lucy53aW4vcmF3P3VybD0=" 
+];
+
+const PLAYLIST_URLS = [atob(_0x4f2a[0]), atob(_0x4f2a[1])];
+
+window.onload = () => {
+    loadAllPlaylists();
+    document.getElementById('search-input').addEventListener('input', filterChannels);
+};
+
+// HLS.js Performance Playback Configurations
+const config = {
+    maxBufferLength: 30,
+    maxMaxBufferLength: 600,
+    manifestLoadingTimeOut: 15000,
+    manifestLoadingMaxRetry: 6,
+    levelLoadingTimeOut: 15000,
+    levelLoadingMaxRetry: 6,
+    enableWorker: true,
+    lowLatencyMode: true,
+    xhrSetup: function (xhr) { xhr.withCredentials = false; }
+};
+
+function playChannel(url, useProxy = false) {
+    if (currentHls) {
+        currentHls.destroy();
+        currentHls = null;
     }
-}
 
-// 2. Simple regex engine to extract #EXTINF titles and video stream URLs
-function parseM3U(data) {
-    const lines = data.split('\n');
-    const result = [];
-    let currentName = '';
+    // Dynamic Secure Reverse-Proxy Injector for Mixed-Content/CORS
+    if ((window.location.protocol === 'https:' && url.startsWith('http://')) || useProxy) {
+        console.warn("Routing stream through secure proxy resolver...");
+        url = atob(_0x4f2a[2]) + encodeURIComponent(url);
+    }
 
-    for (let i = 0; i < lines.length; i++) {
-        const line = lines[i].trim();
+    if (Hls.isSupported()) {
+        currentHls = new Hls(config);
+        currentHls.loadSource(url);
+        currentHls.attachMedia(player);
+        currentHls.on(Hls.Events.MANIFEST_PARSED, () => player.play().catch(() => {}));
         
-        if (line.startsWith('#EXTINF:')) {
-            // Extract channel name after the last comma
-            const commaIndex = line.lastIndexOf(',');
-            if (commaIndex !== -1) {
-                currentName = line.substring(commaIndex + 1).trim();
-            } else {
-                currentName = 'Unknown Channel';
+        currentHls.on(Hls.Events.ERROR, (event, data) => {
+            if (data.fatal) {
+                switch(data.type) {
+                    case Hls.ErrorTypes.NETWORK_ERROR:
+                        if (!useProxy) {
+                            console.log("Network failure. Trying Proxy Server Tunnel...");
+                            playChannel(url, true);
+                        } else {
+                            currentHls.startLoad();
+                        }
+                        break;
+                    case Hls.ErrorTypes.MEDIA_ERROR:
+                        currentHls.recoverMediaError();
+                        break;
+                    default:
+                        currentHls.destroy();
+                        break;
+                }
             }
-        } else if (line.length > 0 && !line.startsWith('#')) {
-            // This line is the stream URL
-            if (currentName === '') currentName = `Channel ${result.length + 1}`;
-            result.push({
-                name: currentName,
-                link: line
-            });
-            currentName = ''; // Reset for next iteration
-        }
+        });
+    } else if (player.canPlayType('application/vnd.apple.mpegurl')) {
+        // Native Apple iOS/Safari handling Architecture
+        player.src = url;
+        player.addEventListener('loadedmetadata', () => player.play().catch(() => {}));
     }
-    return result;
 }
 
-// 3. Render Channels to UI List
-function displayChannels(channelData) {
+async function fetchPlaylist(url) {
+    try {
+        let response = await fetch(url);
+        if (!response.ok) response = await fetch(atob(_0x4f2a[2]) + encodeURIComponent(url));
+        if (!response.ok) throw new Error();
+        
+        const playlistText = await response.text();
+        
+        // Direct RAW link extraction handling
+        if (!playlistText.includes('#EXTM3U')) {
+            if (url.startsWith('http')) {
+                let fallbackTitle = 'DIRECT CHANNEL';
+                try {
+                    let parts = url.split('/');
+                    let file = parts[parts.length - 1].split('?')[0];
+                    if (file.length > 4) fallbackTitle = file.replace('.m3u8','').toUpperCase();
+                } catch(e){}
+                return [{ name: fallbackTitle, url: url, logo: DEFAULT_LOGO }];
+            }
+            return [];
+        }
+
+        const lines = playlistText.split('\n').map(l => l.trim());
+        const channels = [];
+
+        for (let i = 0; i < lines.length; i++) {
+            if (lines[i].startsWith('#EXTINF')) {
+                const currentLine = lines[i];
+                const logoMatch = currentLine.match(/tvg-logo="([^"]*)"/) || currentLine.match(/logo="([^"]*)"/);
+                const tvgNameMatch = currentLine.match(/tvg-name="([^"]*)"/);
+                
+                let name = 'Live Channel Stream';
+                const commaIndex = currentLine.lastIndexOf(',');
+                if (commaIndex !== -1) name = currentLine.substring(commaIndex + 1).trim();
+                else if (tvgNameMatch) name = tvgNameMatch[1].trim();
+                
+                const logo = logoMatch ? logoMatch[1].trim() : DEFAULT_LOGO;
+                
+                let j = i + 1;
+                while (j < lines.length && (lines[j].length === 0 || lines[j].startsWith('#'))) {
+                    j++;
+                }
+                
+                if (j < lines.length && lines[j].startsWith('http')) {
+                    channels.push({ name, url: lines[j], logo });
+                    i = j;
+                }
+            }
+        }
+        return channels;
+    } catch (error) {
+        return url.startsWith('http') ? [{ name: 'Direct Stream Line', url: url, logo: DEFAULT_LOGO }] : [];
+    }
+}
+
+async function loadAllPlaylists() {
+    const results = await Promise.all(PLAYLIST_URLS.map(url => fetchPlaylist(url)));
+    const seenUrls = new Set();
+    
+    // Aggregating lists & stripping structural duplicates 
+    allChannels = results.flat().filter(channel => {
+        if (seenUrls.has(channel.url)) return false;
+        seenUrls.add(channel.url);
+        return true;
+    });
+
+    renderChannels(allChannels, true);
+}
+
+function renderChannels(channels, isInitialLoad = false) {
+    const channelList = document.getElementById('channel-list');
     channelList.innerHTML = '';
     
-    if (channelData.length === 0) {
-        channelList.innerHTML = '<div class="no-match">No channels found.</div>';
+    if (channels.length === 0) {
+        channelList.innerHTML = '<div style="padding: 20px; text-align: center; color: #888;">No channels found</div>';
         return;
     }
 
-    channelData.forEach(channel => {
-        const channelDiv = document.createElement('div');
-        channelDiv.className = 'channel';
-        channelDiv.innerText = channel.name;
+    channels.forEach((channel, index) => {
+        const item = document.createElement('div');
+        item.className = 'channel-item';
+        item.innerHTML = `
+            <img src="${channel.logo}" alt="${channel.name}" onerror="this.src='${DEFAULT_LOGO}'">
+            <span>${channel.name}</span>
+        `;
+        item.onclick = () => playChannel(channel.url);
+        channelList.appendChild(item);
 
-        channelDiv.addEventListener('click', () => {
-            playStream(channel.link);
-        });
-
-        channelList.appendChild(channelDiv);
+        if (index === 0 && isInitialLoad) {
+            playChannel(channel.url);
+        }
     });
 }
 
-// 4. Stream Player Handler (Uses Hls.js fallback for raw live streams)
-function playStream(url) {
-    if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(url);
-        hls.attachMedia(videoPlayer);
-        hls.on(Hls.Events.MANIFEST_PARSED, function() {
-            videoPlayer.play();
-        });
-    } 
-    // Fallback native support for Safari/Mobile devices
-    else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-        videoPlayer.src = url;
-        videoPlayer.addEventListener('loadedmetadata', function() {
-            videoPlayer.play();
-        });
-    } else {
-        alert('Your browser does not support HLS stream playback.');
+function filterChannels() {
+    const searchInput = document.getElementById('search-input').value.toLowerCase().trim();
+    if (!searchInput) {
+        renderChannels(allChannels, false);
+        return;
     }
-}
-
-// 5. Live Search Input Filter
-searchBar.addEventListener('input', function() {
-    const searchTerm = searchBar.value.toLowerCase();
-    const filteredChannels = channels.filter(channel =>
-        channel.name.toLowerCase().includes(searchTerm)
+    const filtered = allChannels.filter(channel => 
+        channel.name.toLowerCase().includes(searchInput)
     );
-    displayChannels(filteredChannels);
-});
-
-// Run application
-loadPlaylist();
+    renderChannels(filtered, false);
+}
