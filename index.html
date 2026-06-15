@@ -1,44 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ariful Islam</title>
-    <link rel="stylesheet" href="style.css">
+  <head>
+<title>Porn-tube</title>    
+      <meta charset="utf-8">
+<meta name="TUBE" content="unsafe-url">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+   </head> 
+<div style="color: white; background-color: #fe0000; padding: 1px; text-align: center;">
+  &copy; PORN-TUBE
+</div>
+
+    <style>
+        body {
+            background-image: url('https://i.postimg.cc/HL80ww0j/Won_Server.png');
+            background-size: cover;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            overflow: true;
+            padding-right: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            max-width: 1200px;
+            margin:  auto;
+            padding: 20px;
+            padding-bottom: 50px;
+            height: calc(100vh - 60px);
+            box-sizing: border-box;
+        }
+
+        .player-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 50%;
+            background-color: rgba(0, 0, 0, 0.7);
+            margin-bottom: 0px;
+        }
+
+        #player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        #searchBar {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            width: 90%;
+            margin: 0 auto;
+            display: block;
+        }
+
+        #channelList {
+            background-color: rgba(255, 255, 255, 0.7);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            margin: 0 auto;
+            max-height: calc(100vh - 200px);
+        }
+
+        .channel {
+            font-weight: bold;
+            color: OrangeRed;
+            padding: 10px;
+            cursor: pointer;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .channel:hover {
+            background-color: #66fa98;
+        }
+
+        @media (min-width: 600px) {
+            .container {
+                flex-direction: row;
+                padding-bottom: 0;
+                padding-right: 0;
+            }
+
+            .player-container {
+                width: 70%;
+                padding-bottom: calc(70% * 0.625);
+                margin-bottom: 0;
+            }
+
+            #channelSection {
+                width: 30%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            #channelList {
+                width: 100%;
+                margin: 0;
+                position: static;
+                max-height: calc(70vw * 0.625);
+            }
+
+            #searchBar {
+                width: 100%;
+                margin: 0;
+                padding: 8px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <!-- Iframe container for maintaining 16:10 aspect ratio -->
+        <div class="player-container">
+            <iframe id="player" src="/smp-1/tv-0001"></iframe>
+        </div>
 
-    <header>
-        <h1>Ariful Islam</h1>
-        <p>Welcome to my personal website</p>
-    </header>
+        <!-- Channel Section containing Search bar and Channel List -->
+        <div id="channelSection">
+            <!-- Search Bar -->
+            <input type="text" id="searchBar" placeholder="Search channels...">
 
-    <section class="about">
-        <h2>About Me</h2>
-        <p>
-            Hello! I am Ariful Islam. This is my personal website where I share
-            information about myself, my skills, and my projects.
-        </p>
-    </section>
+            <!-- Scrollable channel list -->
+            <div id="channelList"></div>
+        </div>
+    </div>
 
-    <section class="skills">
-        <h2>My Skills</h2>
-        <ul>
-            <li>Web Development</li>
-            <li>HTML & CSS</li>
-            <li>JavaScript</li>
-        </ul>
-    </section>
+    <script>
+        const channels = [
+{ name: 'VOD-1', link: '/smp-1/tv-0001' },
+{ name: 'VOD-2', link: '/smp-1/tv-0002' },
+{ name: 'VOD-3', link: '/smp-1/tv-0003' },
+{ name: 'VOD-4', link: '/smp-1/tv-0004' },
 
-    <section class="contact">
-        <h2>Contact</h2>
-        <p>Email: your-email@example.com</p>
-    </section>
+{ name: 'VOD-0', link: '/smp-1/tv-0001' },
+        ];
 
-    <footer>
-        <p>© 2026 Ariful Islam</p>
-    </footer>
+        const channelList = document.getElementById('channelList');
+        const searchBar = document.getElementById('searchBar');
 
-    <script src="script.js"></script>
+        function displayChannels(channelData) {
+            channelList.innerHTML = '';
+            channelData.forEach(channel => {
+                const channelDiv = document.createElement('div');
+                channelDiv.className = 'channel';
+                channelDiv.innerText = channel.name;
+
+                channelDiv.addEventListener('click', () => {
+                    document.getElementById('player').src = channel.link;
+                });
+
+                channelList.appendChild(channelDiv);
+            });
+        }
+
+        // Display all channels initially
+        displayChannels(channels);
+
+        // Filter channels based on search input
+        searchBar.addEventListener('input', function() {
+            const searchTerm = searchBar.value.toLowerCase();
+            const filteredChannels = channels.filter(channel =>
+                channel.name.toLowerCase().includes(searchTerm)
+            );
+            displayChannels(filteredChannels);
+        });
+    </script>
 </body>
 </html>
