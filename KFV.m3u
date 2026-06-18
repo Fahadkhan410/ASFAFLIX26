@@ -18,13 +18,15 @@ http://10.45.45.254/player.php?stream=101
 
 #EXTINF:-1 tvg-id="somoy_tv" tvg-name="SOMOY TV" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",SOMOY TV
 http://10.45.45.254/player.php?stream=79
+#EXTINF:-1 tvg-id="btv" tvg-name="BTV" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",BTV
+http://10.45.45.254/player.php?stream=105
 #EXTINF:-1 tvg-id="nagorik" tvg-name="NAGORIK" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",NAGORIK
 http://10.45.45.254/player.php?stream=54
 #EXTINF:-1 tvg-id="jamuna_tv" tvg-name="JAMUNA TV" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",JAMUNA TV
 http://10.45.45.254/player.php?stream=76
 #EXTINF:-1 tvg-id="channel_24" tvg-name="CHANNEL 24" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",CHANNEL 24
 http://10.45.45.254/player.php?stream=82
-#EXTINF:-1 tvg-id="independent_tv" tvg-name="INDEPENDENT TV" tvg-logo="hhttps://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",INDEPENDENT TV
+#EXTINF:-1 tvg-id="independent_tv" tvg-name="INDEPENDENT TV" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",INDEPENDENT TV
 http://10.45.45.254/player.php?stream=77
 #EXTINF:-1 tvg-id="atn_news" tvg-name="ATN NEWS" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",ATN NEWS
 http://10.45.45.254/player.php?stream=95
@@ -36,8 +38,6 @@ http://10.45.45.254/player.php?stream=80
 http://10.45.45.254/player.php?stream=81
 #EXTINF:-1 tvg-id="gtv" tvg-name="GTV" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png",GTV
 http://10.45.45.254/player.php?stream=56
-#EXTINF:-1 tvg-id="btv" tvg-name="BTV" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",BTV
-http://10.45.45.254/player.php?stream=105
 
 #EXTINF:-1 tvg-id="jalsha_movies_hd" tvg-name="JALSHA MOVIES HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",JALSHA MOVIES HD
 http://10.45.45.254/player.php?stream=19
