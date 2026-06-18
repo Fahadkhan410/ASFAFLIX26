@@ -1,204 +1,102 @@
 #EXTM3U
-
-#EXTINF:-1 tvg-id="live_sports" tvg-name="0-Live Sports" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/0-Live Sports1755424163.png" group-title="Sports",0-Live Sports
-http://10.45.45.254/player.php?stream=104
-
-#EXTINF:-1 tvg-id="a_sports_hd" tvg-name="A SPORTS HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/A SPORTS HD1745044782.png" group-title="Sports",A SPORTS HD
-http://10.45.45.254/player.php?stream=88
-
-#EXTINF:-1 tvg-id="aljazeeta_hd" tvg-name="ALJAZEETA HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/ALJAZEETA HD1745044358.png" group-title="English",ALJAZEETA HD
-http://10.45.45.254/player.php?stream=85
-
-#EXTINF:-1 tvg-id="and_flix_hd" tvg-name="AND FLIX HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/AND FLIX HD1745040018.png" group-title="English",AND FLIX HD
-http://10.45.45.254/player.php?stream=35
-
-#EXTINF:-1 tvg-id="and_picturs_hd" tvg-name="AND PICTURS HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/AND PICTURS HD1745031440.png" group-title="Hindi",AND PICTURS HD
-http://10.45.45.254/player.php?stream=5
-
-#EXTINF:-1 tvg-id="and_prive_hd" tvg-name="AND PRIVE HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/AND PRIVE HD1745040451.png" group-title="English",AND PRIVE HD
-http://10.45.45.254/player.php?stream=41
-
-#EXTINF:-1 tvg-id="and_xplore" tvg-name="AND XPLORE" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/AND XPLORE1745043080.png" group-title="English",AND XPLORE
-http://10.45.45.254/player.php?stream=61
-
-#EXTINF:-1 tvg-id="animal_planet_hd" tvg-name="ANIMAL PLANET HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/ANIMAL PLANET HD1745038671.png" group-title="English",ANIMAL PLANET HD
-http://10.45.45.254/player.php?stream=26
-
-#EXTINF:-1 tvg-id="atn_bangla" tvg-name="ATN BANGLA" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/ATN BANGLA1745044183.png" group-title="Bangla",ATN BANGLA
-http://10.45.45.254/player.php?stream=80
-
-#EXTINF:-1 tvg-id="atn_news" tvg-name="ATN NEWS" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/ATN NEWS1745045113.png" group-title="Bangla",ATN NEWS
-http://10.45.45.254/player.php?stream=95
-
-#EXTINF:-1 tvg-id="axn_hd" tvg-name="AXN HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/AXN HD1745045171.png" group-title="English",AXN HD
-http://10.45.45.254/player.php?stream=97
-
-#EXTINF:-1 tvg-id="bal_bharat" tvg-name="BAL BHARAT" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/BAL BHARAT1745041576.png" group-title="Kids",BAL BHARAT
-http://10.45.45.254/player.php?stream=50
-
-#EXTINF:-1 tvg-id="bbc_earth_hd" tvg-name="BBC EARTH HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/BBC EARTH HD1745150455.png" group-title="English",BBC EARTH HD
-http://10.45.45.254/player.php?stream=102
-
-#EXTINF:-1 tvg-id="bbc_news" tvg-name="BBC NEWS" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/BBC NEWS1745042816.png" group-title="English",BBC NEWS
-http://10.45.45.254/player.php?stream=55
-
-#EXTINF:-1 tvg-id="btv" tvg-name="BTV" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/BTV1781083859.png" group-title="Bangla",BTV
-http://10.45.45.254/player.php?stream=105
-
-#EXTINF:-1 tvg-id="cartoon_network" tvg-name="CARTOON NETWORK" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/CARTOON NETWORK1745033414.png" group-title="Kids",CARTOON NETWORK
-http://10.45.45.254/player.php?stream=8
-
-#EXTINF:-1 tvg-id="channel_24" tvg-name="CHANNEL 24" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/CHANNEL 241745044263.png" group-title="Bangla",CHANNEL 24
-http://10.45.45.254/player.php?stream=82
-
-#EXTINF:-1 tvg-id="channel_i" tvg-name="CHANNEL I" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/CHANNEL I1745044237.png" group-title="Bangla",CHANNEL I
-http://10.45.45.254/player.php?stream=81
-
-#EXTINF:-1 tvg-id="colors_bangla_cinema" tvg-name="COLORS BANGLA CINEMA" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/COLORS BANGLA CINEMA1745041486.png" group-title="Bangla",COLORS BANGLA CINEMA
-http://10.45.45.254/player.php?stream=47
-
-#EXTINF:-1 tvg-id="colors_bangla_hd" tvg-name="COLORS BANGLA HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/COLORS BANGLA HD1745033576.png" group-title="Bangla",COLORS BANGLA HD
-http://10.45.45.254/player.php?stream=12
-
-#EXTINF:-1 tvg-id="colors_cineplex_hd" tvg-name="COLORS CINEPLEX HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/COLORS CINEPLEX HD1745033519.png" group-title="Hindi",COLORS CINEPLEX HD
-http://10.45.45.254/player.php?stream=10
-
-#EXTINF:-1 tvg-id="colors_hd" tvg-name="COLORS HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/COLORS HD1745031404.png" group-title="Hindi",COLORS HD
-http://10.45.45.254/player.php?stream=4
-
-#EXTINF:-1 tvg-id="discovery_hd" tvg-name="DISCOVERY HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/discovery hd.png" group-title="English",DISCOVERY HD
-http://10.45.45.254/player.php?stream=22
-
-#EXTINF:-1 tvg-id="duranta_tv" tvg-name="DURANTA TV" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/DURANTA TV1745043400.png" group-title="Kids",DURANTA TV
-http://10.45.45.254/player.php?stream=68
-
-#EXTINF:-1 tvg-id="enterr_10" tvg-name="ENTERR 10" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/ENTERR 101745044330.png" group-title="Bangla",ENTERR 10
-http://10.45.45.254/player.php?stream=84
-
-#EXTINF:-1 tvg-id="eurosports_hd" tvg-name="EUROSPORTS HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/EUROSPORTS HD1745040406.png" group-title="Sports",EUROSPORTS HD
-http://10.45.45.254/player.php?stream=40
-
-#EXTINF:-1 tvg-id="fast_sports_hd" tvg-name="FAST SPORTS HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/FAST SPORTS HD1745044750.png" group-title="Sports",FAST SPORTS HD
-http://10.45.45.254/player.php?stream=87
-
-#EXTINF:-1 tvg-id="geo_news_hd" tvg-name="GEO NEWS HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/GEO NEWS HD1745044892.png" group-title="Hindi",GEO NEWS HD
-http://10.45.45.254/player.php?stream=90
-
-#EXTINF:-1 tvg-id="golf_sports" tvg-name="GOLF SPORTS" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/GOLF SPORTS1745043338.png" group-title="Sports",GOLF SPORTS
-http://10.45.45.254/player.php?stream=66
-
-#EXTINF:-1 tvg-id="gtv" tvg-name="GTV" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/GTV1745042853.png" group-title="Bangla",GTV
-http://10.45.45.254/player.php?stream=56
-
-#EXTINF:-1 tvg-id="hbo_hd" tvg-name="HBO HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/HBO HD1745045202.png" group-title="English",HBO HD
-http://10.45.45.254/player.php?stream=98
-
-#EXTINF:-1 tvg-id="history_tv_hd" tvg-name="HISTORY TV HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/HISTORY TV HD1745033679.png" group-title="English",HISTORY TV HD
-http://10.45.45.254/player.php?stream=15
-
-#EXTINF:-1 tvg-id="hitz_music" tvg-name="HITZ MUSIC" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/HITZ MUSIC1745043478.png" group-title="English",HITZ MUSIC
-http://10.45.45.254/player.php?stream=70
-
-#EXTINF:-1 tvg-id="hum_tv" tvg-name="HUM TV" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/HUM TV1745044837.png" group-title="Hindi",HUM TV
-http://10.45.45.254/player.php?stream=89
-
-#EXTINF:-1 tvg-id="hungama" tvg-name="HUNGAMA" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/HUNGAMA1745041551.png" group-title="Kids",HUNGAMA
-http://10.45.45.254/player.php?stream=49
-
-#EXTINF:-1 tvg-id="independent_tv" tvg-name="INDEPENDENT TV" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/INDEPENDENT TV1745044077.png" group-title="Bangla",INDEPENDENT TV
-http://10.45.45.254/player.php?stream=77
-
-#EXTINF:-1 tvg-id="jalsha_movies_hd" tvg-name="JALSHA MOVIES HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/JALSHA MOVIES HD1745034005.png" group-title="Bangla",JALSHA MOVIES HD
-http://10.45.45.254/player.php?stream=19
-
-#EXTINF:-1 tvg-id="jamuna_tv" tvg-name="JAMUNA TV" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/JAMUNA TV1745044052.png" group-title="Bangla",JAMUNA TV
-http://10.45.45.254/player.php?stream=76
-
-#EXTINF:-1 tvg-id="lotus_tv" tvg-name="LOTUS TV" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/LOTUS TV1745044960.png" group-title="English",LOTUS TV
-http://10.45.45.254/player.php?stream=91
-
-#EXTINF:-1 tvg-id="love_nature" tvg-name="LOVE NATURE" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/LOVE NATURE1745043370.png" group-title="English",LOVE NATURE
-http://10.45.45.254/player.php?stream=67
-
-#EXTINF:-1 tvg-id="maasranga_hd" tvg-name="MAASRANGA HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/MAASRANGA HD1745044117.png" group-title="Bangla",MAASRANGA HD
-http://10.45.45.254/player.php?stream=78
-
-#EXTINF:-1 tvg-id="madani_tv_hd" tvg-name="MADANI TV HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/MADANI TV HD1745044303.png" group-title="Islamic",MADANI TV HD
-http://10.45.45.254/player.php?stream=83
-
-#EXTINF:-1 tvg-id="mn_plus" tvg-name="MN PLUS" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/MN PLUS1745040057.png" group-title="English",MN PLUS
-http://10.45.45.254/player.php?stream=36
-
-#EXTINF:-1 tvg-id="mnx_hd" tvg-name="MNX HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/MNX HD1745039955.png" group-title="English",MNX HD
-http://10.45.45.254/player.php?stream=33
-
-#EXTINF:-1 tvg-id="movies_now_hd" tvg-name="MOVIES NOW HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/MOVIES NOW HD1745040368.png" group-title="English",MOVIES NOW HD
-http://10.45.45.254/player.php?stream=39
-
-#EXTINF:-1 tvg-id="nagorik" tvg-name="NAGORIK" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/NAGORIK1745042776.png" group-title="Bangla",NAGORIK
-http://10.45.45.254/player.php?stream=54
-
-#EXTINF:-1 tvg-id="natgeo_hd" tvg-name="NATGEO HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/NATGEO HD1745038634.png" group-title="English",NATGEO HD
-http://10.45.45.254/player.php?stream=25
-
-#EXTINF:-1 tvg-id="natgeo_wild_hd" tvg-name="NATGEO WILD HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/NATGEO WILD HD1745038542.png" group-title="English",NATGEO WILD HD
-http://10.45.45.254/player.php?stream=23
-
-#EXTINF:-1 tvg-id="nick" tvg-name="NICK" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/NICK1745041451.png" group-title="Kids",NICK
-http://10.45.45.254/player.php?stream=46
-
-#EXTINF:-1 tvg-id="nick_jr" tvg-name="NICK JR" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/NICK JR1745042397.png" group-title="Kids",NICK JR
-http://10.45.45.254/player.php?stream=51
-
-#EXTINF:-1 tvg-id="peace_tv_bangla" tvg-name="PEACE TV BANGLA" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/PEACE TV BANGLA1745044480.png" group-title="Islamic",PEACE TV BANGLA
-http://10.45.45.254/player.php?stream=86
-
-#EXTINF:-1 tvg-id="pogo" tvg-name="POGO" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/POGO1745041515.png" group-title="Kids",POGO
-http://10.45.45.254/player.php?stream=48
-
-#EXTINF:-1 tvg-id="ptv_sports_hd" tvg-name="PTV SPORTS HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/PTV SPORTS HD1745044993.png" group-title="Sports",PTV SPORTS HD
+#EXTINF:-1 tvg-id="ptv_sports_hd" tvg-name="PTV SPORTS HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Sports",PTV SPORTS HD
 http://10.45.45.254/player.php?stream=92
-
-#EXTINF:-1 tvg-id="romedy_now" tvg-name="ROMEDY NOW" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/ROMEDY NOW1745039988.png" group-title="English",ROMEDY NOW
-http://10.45.45.254/player.php?stream=34
-
-#EXTINF:-1 tvg-id="somoy_tv" tvg-name="SOMOY TV" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/SOMOY TV1745044149.png" group-title="Bangla",SOMOY TV
-http://10.45.45.254/player.php?stream=79
-
-#EXTINF:-1 tvg-id="sonic" tvg-name="SONIC" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/SONIC1745041154.png" group-title="Kids",SONIC
-http://10.45.45.254/player.php?stream=45
-
-#EXTINF:-1 tvg-id="sony_aat" tvg-name="SONY AAT" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/SONY AAT1745041124.png" group-title="Bangla",SONY AAT
-http://10.45.45.254/player.php?stream=44
-
-#EXTINF:-1 tvg-id="sony_bbc_earth_hd" tvg-name="SONY BBC EARTH HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/SONY BBC EARTH HD1745031522.png" group-title="English",SONY BBC EARTH HD
-http://10.45.45.254/player.php?stream=6
-
-#EXTINF:-1 tvg-id="sony_ent_hd" tvg-name="SONY ENT HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/SONY ENT HD1745033553.png" group-title="Hindi",SONY ENT HD
-http://10.45.45.254/player.php?stream=11
-
-#EXTINF:-1 tvg-id="sony_max_hd" tvg-name="SONY MAX HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/SONY MAX HD1745034069.png" group-title="Hindi",SONY MAX HD
-http://10.45.45.254/player.php?stream=21
-
-#EXTINF:-1 tvg-id="sony_pix_hd" tvg-name="SONY PIX HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/SONY PIX HD1745039925.png" group-title="English",SONY PIX HD
-http://10.45.45.254/player.php?stream=32
-
-#EXTINF:-1 tvg-id="sony_sports_1_hd" tvg-name="SONY SPORTS 1 HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/sony sports 1 hd.png" group-title="Sports",SONY SPORTS 1 HD
+#EXTINF:-1 tvg-id="live_sports" tvg-name="T-SPORTS-HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Sports",T-SPORTS-HD
+http://10.45.45.254/player.php?stream=1
+#EXTINF:-1 tvg-id="a_sports_hd" tvg-name="A SPORTS HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Sports",A SPORTS HD
+http://10.45.45.254/player.php?stream=88
+#EXTINF:-1 tvg-id="sony_sports_1_hd" tvg-name="SONY SPORTS 1 HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Sports",SONY SPORTS 1 HD
 http://10.45.45.254/player.php?stream=74
-
-#EXTINF:-1 tvg-id="sony_sports_2_hd" tvg-name="SONY SPORTS 2 HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/sony sports 2 hd.png" group-title="Sports",SONY SPORTS 2 HD
+#EXTINF:-1 tvg-id="sony_sports_2_hd" tvg-name="SONY SPORTS 2 HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Sports",SONY SPORTS 2 HD
 http://10.45.45.254/player.php?stream=29
-
-#EXTINF:-1 tvg-id="sony_sports_3" tvg-name="SONY SPORTS 3" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/Sony sports 3.png" group-title="Sports",SONY SPORTS 3
+#EXTINF:-1 tvg-id="sony_sports_3" tvg-name="SONY SPORTS 3" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Sports",SONY SPORTS 3
 http://10.45.45.254/player.php?stream=30
-
-#EXTINF:-1 tvg-id="sony_sports_4" tvg-name="SONY SPORTS 4" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/sony sports 4.png" group-title="Sports",SONY SPORTS 4
+#EXTINF:-1 tvg-id="sony_sports_4" tvg-name="SONY SPORTS 4" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Sports",SONY SPORTS 4
 http://10.45.45.254/player.php?stream=72
-
-#EXTINF:-1 tvg-id="sony_sports_5_hd" tvg-name="SONY SPORTS 5 HD" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/sony sports 5 hd.png" group-title="Sports",SONY SPORTS 5 HD
+#EXTINF:-1 tvg-id="sony_sports_5_hd" tvg-name="SONY SPORTS 5 HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Sports",SONY SPORTS 5 HD
 http://10.45.45.254/player.php?stream=101
 
-#EXTINF:-1 tvg-id="sony_yay" tvg-name="SONY YAY" tvg-logo="http://YOUR_SERVER_IP_OR_DOMAIN/assets/images/SONY YAY1745045046.png" group-title="Kids",SONY YAY
-http://10.45.45.254/player.php?stream=93
+#EXTINF:-1 tvg-id="somoy_tv" tvg-name="SOMOY TV" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",SOMOY TV
+http://10.45.45.254/player.php?stream=79
+#EXTINF:-1 tvg-id="nagorik" tvg-name="NAGORIK" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",NAGORIK
+http://10.45.45.254/player.php?stream=54
+#EXTINF:-1 tvg-id="jamuna_tv" tvg-name="JAMUNA TV" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",JAMUNA TV
+http://10.45.45.254/player.php?stream=76
+#EXTINF:-1 tvg-id="channel_24" tvg-name="CHANNEL 24" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",CHANNEL 24
+http://10.45.45.254/player.php?stream=82
+#EXTINF:-1 tvg-id="independent_tv" tvg-name="INDEPENDENT TV" tvg-logo="hhttps://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",INDEPENDENT TV
+http://10.45.45.254/player.php?stream=77
+#EXTINF:-1 tvg-id="atn_news" tvg-name="ATN NEWS" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",ATN NEWS
+http://10.45.45.254/player.php?stream=95
+#EXTINF:-1 tvg-id="maasranga_hd" tvg-name="MAASRANGA HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",MAASRANGA HD
+http://10.45.45.254/player.php?stream=78
+#EXTINF:-1 tvg-id="atn_bangla" tvg-name="ATN BANGLA" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",ATN BANGLA
+http://10.45.45.254/player.php?stream=80
+#EXTINF:-1 tvg-id="channel_i" tvg-name="CHANNEL I" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",CHANNEL I
+http://10.45.45.254/player.php?stream=81
+#EXTINF:-1 tvg-id="gtv" tvg-name="GTV" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png",GTV
+http://10.45.45.254/player.php?stream=56
+#EXTINF:-1 tvg-id="btv" tvg-name="BTV" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",BTV
+http://10.45.45.254/player.php?stream=105
 
-```
+#EXTINF:-1 tvg-id="jalsha_movies_hd" tvg-name="JALSHA MOVIES HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",JALSHA MOVIES HD
+http://10.45.45.254/player.php?stream=19
+#EXTINF:-1 tvg-id="colors_bangla_cinema" tvg-name="COLORS BANGLA CINEMA" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",COLORS BANGLA CINEMA
+http://10.45.45.254/player.php?stream=47
+#EXTINF:-1 tvg-id="colors_bangla_hd" tvg-name="COLORS BANGLA HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",COLORS BANGLA HD
+http://10.45.45.254/player.php?stream=12
+#EXTINF:-1 tvg-id="sony_aat" tvg-name="SONY AAT" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",SONY AAT
+http://10.45.45.254/player.php?stream=44
+#EXTINF:-1 tvg-id="enterr_10" tvg-name="ENTERR 10" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Bangla",ENTERR 10
+http://10.45.45.254/player.php?stream=84
+
+#EXTINF:-1 tvg-id="and_picturs_hd" tvg-name="AND PICTURS HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Hindi",AND PICTURS HD
+http://10.45.45.254/player.php?stream=5
+#EXTINF:-1 tvg-id="sony_max_hd" tvg-name="SONY MAX HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Hindi",SONY MAX HD
+http://10.45.45.254/player.php?stream=21
+#EXTINF:-1 tvg-id="colors_cineplex_hd" tvg-name="COLORS CINEPLEX HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Hindi",COLORS CINEPLEX HD
+http://10.45.45.254/player.php?stream=10
+#EXTINF:-1 tvg-id="sony_ent_hd" tvg-name="SONY ENT HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Hindi",SONY ENT HD
+http://10.45.45.254/player.php?stream=11
+#EXTINF:-1 tvg-id="colors_hd" tvg-name="COLORS HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Hindi",COLORS HD
+http://10.45.45.254/player.php?stream=4
+
+#EXTINF:-1 tvg-id="history_tv_hd" tvg-name="HISTORY TV HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="English",HISTORY TV HD
+http://10.45.45.254/player.php?stream=15
+#EXTINF:-1 tvg-id="natgeo_hd" tvg-name="NATGEO HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="English",NATGEO HD
+http://10.45.45.254/player.php?stream=25
+#EXTINF:-1 tvg-id="discovery_hd" tvg-name="DISCOVERY HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="English",DISCOVERY HD
+http://10.45.45.254/player.php?stream=22
+#EXTINF:-1 tvg-id="animal_planet_hd" tvg-name="ANIMAL PLANET HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="English",ANIMAL PLANET HD
+http://10.45.45.254/player.php?stream=26
+#EXTINF:-1 tvg-id="sony_pix_hd" tvg-name="SONY PIX HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="English",SONY PIX HD
+http://10.45.45.254/player.php?stream=32
+#EXTINF:-1 tvg-id="hbo_hd" tvg-name="HBO HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="English",HBO HD
+http://10.45.45.254/player.php?stream=98
+#EXTINF:-1 tvg-id="axn_hd" tvg-name="AXN HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="English",AXN HD
+http://10.45.45.254/player.php?stream=97
+#EXTINF:-1 tvg-id="and_flix_hd" tvg-name="AND FLIX HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="English",AND FLIX HD
+http://10.45.45.254/player.php?stream=35
+#EXTINF:-1 tvg-id="and_prive_hd" tvg-name="AND PRIVE HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="English",AND PRIVE HD
+http://10.45.45.254/player.php?stream=41
+#EXTINF:-1 tvg-id="and_xplore" tvg-name="AND XPLORE" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="English",AND XPLORE
+http://10.45.45.254/player.php?stream=61
+#EXTINF:-1 tvg-id="mn_plus" tvg-name="MN PLUS" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="English",MN PLUS
+http://10.45.45.254/player.php?stream=36
+#EXTINF:-1 tvg-id="mnx_hd" tvg-name="MNX HD" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="English",MNX HD
+http://10.45.45.254/player.php?stream=33
+
+#EXTINF:-1 tvg-id="duranta_tv" tvg-name="DURANTA TV" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Kids",DURANTA TV
+http://10.45.45.254/player.php?stream=68
+#EXTINF:-1 tvg-id="hungama" tvg-name="HUNGAMA" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Kids",HUNGAMA
+http://10.45.45.254/player.php?stream=49
+#EXTINF:-1 tvg-id="sonic" tvg-name="SONIC" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Kids",SONIC
+http://10.45.45.254/player.php?stream=45
+#EXTINF:-1 tvg-id="nick" tvg-name="NICK" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Kids",NICK
+http://10.45.45.254/player.php?stream=46
+#EXTINF:-1 tvg-id="pogo" tvg-name="POGO" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Kids",POGO
+http://10.45.45.254/player.php?stream=48
+#EXTINF:-1 tvg-id="sony_yay" tvg-name="SONY YAY" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Kids",SONY YAY
+http://10.45.45.254/player.php?stream=93
+#EXTINF:-1 tvg-id="cartoon_network" tvg-name="CARTOON NETWORK" tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="Kids",CARTOON NETWORK
+http://10.45.45.254/player.php?stream=8
