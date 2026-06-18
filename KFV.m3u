@@ -1,0 +1,107 @@
+#EXTM3U
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", PTV SPORTS HD
+http://10.45.45.254/player.php?stream=92
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", T SPORTS
+http://10.45.45.254/player.php?stream=1
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", SOMOY TV
+http://10.45.45.254/player.php?stream=79
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", NAGORIK
+http://10.45.45.254/player.php?stream=54
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", BTV
+http://10.45.45.254/player.php?stream=105
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", JAMUNA TV
+http://10.45.45.254/player.php?stream=76
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", INDEPENDENT TV
+http://10.45.45.254/player.php?stream=77
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", CHANNEL 24
+http://10.45.45.254/player.php?stream=82
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", ATN BANGLA
+http://10.45.45.254/player.php?stream=80
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", ATN NEWS
+http://10.45.45.254/player.php?stream=95
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", CHANNEL I
+http://10.45.45.254/player.php?stream=81
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", GTV
+http://10.45.45.254/player.php?stream=56
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", MAASRANGA HD
+http://10.45.45.254/player.php?stream=78
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", DURANTA TV
+http://10.45.45.254/player.php?stream=68
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", COLORS BANGLA CINEMA
+http://10.45.45.254/player.php?stream=47
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", JALSHA MOVIES HD
+http://10.45.45.254/player.php?stream=19
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", COLORS BANGLA HD
+http://10.45.45.254/player.php?stream=12
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", SONY AATH
+http://10.45.45.254/player.php?stream=44
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", ENTERR 10
+http://10.45.45.254/player.php?stream=84
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", SONY MAX HD
+http://10.45.45.254/player.php?stream=21
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", AND PICTURS HD
+http://10.45.45.254/player.php?stream=5
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", COLORS CINEPLEX HD
+http://10.45.45.254/player.php?stream=10
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", SONY ENT HD
+http://10.45.45.254/player.php?stream=11
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", COLORS HD
+http://10.45.45.254/player.php?stream=4
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", HISTORY TV HD
+http://10.45.45.254/player.php?stream=15
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", NATGEO HD
+http://10.45.45.254/player.php?stream=25
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", DISCOVERY HD
+http://10.45.45.254/player.php?stream=22
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", ANIMAL PLANET HD
+http://10.45.45.254/player.php?stream=26
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", SONY PIX HD
+http://10.45.45.254/player.php?stream=32
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", HBO HD
+http://10.45.45.254/player.php?stream=98
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", AXN HD
+http://10.45.45.254/player.php?stream=97
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", AND FLIX HD
+http://10.45.45.254/player.php?stream=35
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", AND PRIVE HD
+http://10.45.45.254/player.php?stream=41
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", AND XPLORE
+http://10.45.45.254/player.php?stream=61
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", MN PLUS
+http://10.45.45.254/player.php?stream=36
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", MNX HD
+http://10.45.45.254/player.php?stream=33
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", A SPORTS HD
+http://10.45.45.254/player.php?stream=88
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", SONY SPORTS 1 HD
+http://10.45.45.254/player.php?stream=74
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", SONY SPORTS 2 HD
+http://10.45.45.254/player.php?stream=29
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", SONY SPORTS 3
+http://10.45.45.254/player.php?stream=30
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", SONY SPORTS 4
+http://10.45.45.254/player.php?stream=72
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", SONY SPORTS 5 HD
+http://10.45.45.254/player.php?stream=101
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", LIVE SPORTS
+http://10.45.45.254/player.php?stream=104
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", HUNGAMA
+http://10.45.45.254/player.php?stream=49
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", SONIC
+http://10.45.45.254/player.php?stream=45
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", NICK
+http://10.45.45.254/player.php?stream=46
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", POGO
+http://10.45.45.254/player.php?stream=48
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", SONY YAY
+http://10.45.45.254/player.php?stream=93
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", BAL BHARAT
+http://10.45.45.254/player.php?stream=50
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zDpLxcNy/FTP-Asfa-Iptv.png" group-title="ASFA📺FTP TV", CARTOON NETWORK
+http://10.45.45.254/player.php?stream=8
