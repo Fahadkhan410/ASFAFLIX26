@@ -1,10 +1,10 @@
 export default async function handler(req, res) {
-  const sourceJsonUrl = 'https://raw.githubusercontent.com/hasanhabibmottakin/xxxxxxxxxxxxxxxxxx/refs/heads/main/ns.m3u'; // আপনার গিটহাব লিংক দিন
+  const sourceJsonUrl = 'https://raw.githubusercontent.com/hasanhabibmottakin/xxxxxxxxxxxxxxxxxx/refs/heads/main/ns.m3u'; // আপনার সঠিক গিটহাব লিংক দিন
   const targetDomain = 'https://asfaflix.vercel.app/play/';
 
   try {
     const response = await fetch(sourceJsonUrl);
-    if (!response.ok) throw new Error('Fetch failed');
+    if (!response.ok) throw new Error('Source fetch failed');
     const channels = await response.json();
 
     let m3uContent = '#EXTM3U\n';
@@ -15,6 +15,7 @@ export default async function handler(req, res) {
       const originalLink = channel.link || '';
 
       if (originalLink) {
+        // মূল লিংক থেকে চ্যানেলের ইউনিক আইডি বের করা
         const urlParts = originalLink.split('/');
         const channelId = urlParts[urlParts.length - 2]; 
 
