@@ -1,5 +1,5 @@
 <?php
-// Set explicit headers so video engines interpret this as a real live stream
+// Force clear headers so standard players interpret this as a live stream map
 header('Content-Type: application/vnd.apple.mpegurl');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
@@ -13,6 +13,7 @@ curl_setopt($ch_main, CURLOPT_URL, $github_data_url);
 curl_setopt($ch_main, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch_main, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($ch_main, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch_main, CURLOPT_ENCODING, ''); // Handles gzip if your github raw stream is compressed
 curl_setopt($ch_main, CURLOPT_HTTPHEADER, array(
     "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 ));
@@ -61,14 +62,13 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
 if (empty($id)) {
     echo "#EXTM3U\n";
     foreach ($channels as $idx => $channel) {
-        // Embed the specific custom Toffee user-agent tag parameters natively inside the playlist block
         echo '#EXTINF:-1 tvg-logo="' . $channel['logo'] . '" group-title="Toffee Live" user-agent="Toffee (Linux; AndroidXMedia3/1.1.1)",' . $channel['name'] . "\n";
         echo "https://" . $_SERVER['HTTP_HOST'] . "/?id=" . $idx . "\n";
     }
     exit;
 }
 
-// IF A CHANNEL ID IS PASSED: Serve as a reverse proxy, embedding cookies securely inside the stream download request
+// IF A CHANNEL ID IS PASSED: Act as a proxy and decompress the playlist text data
 if (isset($channels[$id])) {
     $stream_url = $channels[$id]['link'];
     $cookie = $channels[$id]['cookie'];
@@ -81,6 +81,7 @@ if (isset($channels[$id])) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_ENCODING, ''); // CRITICAL: Force cURL to decode compressed Toffee server responses
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
         "Cookie: " . $cookie,
         "User-Agent: Toffee (Linux; AndroidXMedia3/1.1.1)",
@@ -91,13 +92,12 @@ if (isset($channels[$id])) {
     $manifest_data = curl_exec($ch);
     curl_close($ch);
     
-    // CRITICAL: Reconstruct relative .m3u8 lines into absolute links so your player knows exactly where to request chunks
+    // If the data fetched is valid, reconstruct the internal video tracks cleanly
     if (!empty($manifest_data)) {
         $lines = explode("\n", $manifest_data);
         foreach ($lines as &$line) {
             $line = trim($line);
             if (!empty($line) && strpos($line, '#') !== 0 && strpos($line, 'http') !== 0) {
-                // If it's a relative pathway (like ../slang/mono.m3u8), clean it up and append base URL
                 if (strpos($line, '../') === 0) {
                     $cleaned_base = substr($base_url, 0, -1); 
                     $cleaned_base = substr($cleaned_base, 0, strrpos($cleaned_base, '/') + 1);
@@ -108,9 +108,11 @@ if (isset($channels[$id])) {
             }
         }
         $manifest_data = implode("\n", $lines);
+        echo $manifest_data;
+    } else {
+        // Fallback info text instead of a blank page if stream signature expired entirely
+        echo "#EXTM3U\n#EXTINF:-1,Stream Currently Offline or Expired Token\nhttps://example.com/offline.mp4";
     }
-    
-    echo $manifest_data;
     exit;
 }
 
