@@ -3,72 +3,54 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 header('Access-Control-Allow-Methods: GET, OPTIONS');
 
-// গিটহাবের ফাইল লিংক
-$github_data_url = "https://raw.githubusercontent.com/hasanhabibmottakin/ASFAFLIX26/refs/heads/main/ns.m3u";
-
-// ফাইল রিড করা
-$opts = [
-    "http" => [
-        "method" => "GET",
-        "header" => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\n"
+// সার্ভার ব্লক এড়াতে ডাটা সরাসরি কোডের ভেতরেই রেখে দেওয়া হলো
+$channels = [
+    1 => [
+        "name" => "Somoy TV",
+        "logo" => "https://assets-prod.services.toffeelive.com//f_webp,w_1600,q_75/Xi_Ga5oBNnOkwJLWkhKP/posters/ef2899daee5-45f9b0b3ba80.png",
+        "link" => "https://bldcmprod-cdn.toffeelive.com/cdn/live/somoy_tv/playlist.m3u8",
+        "cookie" => "Edge-Cache-Cookie=URLPrefix=aHR0cHM6Ly9ibWRjbXByb2QtY2RuLnRvZmZlZWxpdmUuY29tL2NkbC9saXZlLw==:Expires=1782061882:KeyName=prod_linear:Signature=x40HifatfytMuqTXo2ED6M7ti5UXykqlH8SMLCjiyoUfgaawLqydipQV9JRF651e9Z1DT8JGjQWLEfMeT8Cg"
     ],
-    "ssl" => [
-        "verify_peer" => false,
-        "verify_peer_name" => false
+    2 => [
+        "name" => "Channel i",
+        "logo" => "https://assets-prod.services.toffeelive.com//qnv835oBcqunFHJBuQcB/posters/348dfac3-c1e0-485d-a72b-3d282c9e2c73.png",
+        "link" => "https://bldcmprod-cdn.toffeelive.com/cdn/live/channel_i/playlist.m3u8",
+        "cookie" => "Edge-Cache-Cookie=URLPrefix=aHR0cHM6Ly9ibWRjbXByb2QtY2RuLnRvZmZlZWxpdmUuY29tL2NkbC9saXZlLw==:Expires=1782061882:KeyName=prod_linear:Signature=x40HifatfytMuqTXo2ED6M7ti5UXykqlH8SMLCjiyoUfgaawLqydipQV9JRF651e9Z1DT8JGjQWLEfMeT8Cg"
+    ],
+    3 => [
+        "name" => "ATN Bangla",
+        "logo" => "https://assets-prod.services.toffeelive.com//NCLx35oBEef-9-uVh-Dg/posters/af9773c7-7971-41a2-9b78-121fcb240c48.png",
+        "link" => "https://bldcmprod-cdn.toffeelive.com/cdn/live/atn_bangla/playlist.m3u8",
+        "cookie" => "Edge-Cache-Cookie=URLPrefix=aHR0cHM6Ly9ibWRjbXByb2QtY2RuLnRvZmZlZWxpdmUuY29tL2NkbC9saXZlLw==:Expires=1782061002:KeyName=prod_linear:Signature=x40HifatfytMuqTXo2ED6M7ti5UXykqlH8SMLCjiyoUfgaawLqydipQV9JRF651e9Z1DT8JGjQWLEfMeT8Cg"
+    ],
+    4 => [
+        "name" => "ATN News",
+        "logo" => "https://assets-prod.services.toffeelive.com//w_320,q_75,f_webp/NCLx35oBEef-9-uVh-Dg/posters/af9773c7-7971-41a2-9b78-121fcb240c48.png",
+        "link" => "https://bldcmprod-cdn.toffeelive.com/cdn/live/atn_news/playlist.m3u8",
+        "cookie" => "Edge-Cache-Cookie=URLPrefix=aHR0cHM6Ly9ibWRjbXByb2QtY2RuLnRvZmZlZWxpdmUuY29tL2NkbC9saXZlLw==:Expires=1782061882:KeyName=prod_linear:Signature=x40HifatfytMuqTXo2ED6M7ti5UXykqlH8SMLCjiyoUfgaawLqydipQV9JRF651e9Z1DT8JGjQWLEfMeT8Cg"
+    ],
+    5 => [
+        "name" => "Ekhon TV",
+        "logo" => "https://assets-prod.services.toffeelive.com//w_320,q_75,f_webp/o3v235oBcqunFHJBkAdC/posters/159af631-796d-4342-a2a7-c272f32bcd32.png",
+        "link" => "https://bldcmprod-cdn.toffeelive.com/cdn/live/ekhon_tv/playlist.m3u8",
+        "cookie" => "Edge-Cache-Cookie=URLPrefix=aHR0cHM6Ly9ibWRjbXByb2QtY2RuLnRvZmZlZWxpdmUuY29tL2NkbC9saXZlLw==:Expires=1782061882:KeyName=prod_linear:Signature=x40HifatfytMuqTXo2ED6M7ti5UXykqlH8SMLCjiyoUfgaawLqydipQV9JRF651e9Z1DT8JGjQWLEfMeT8Cg"
     ]
 ];
-$context = stream_context_create($opts);
-$raw_content = @file_get_contents($github_data_url, false, $context);
-
-$channels = [];
-$index = 1;
-
-if (!empty($raw_content)) {
-    // ১. ফাইলের ভেতরের স্পেস বা নতুন লাইন পরিষ্কার করা
-    $clean_content = trim($raw_content);
-    
-    // ২. সবচেয়ে গুরুত্বপূর্ণ অংশ: কমা ছাড়া { }{ } থাকলে সেগুলোর মাঝে কমা ( , ) বসানো
-    $clean_content = preg_replace('/\}\s*\{/', '},{', $clean_content);
-    
-    // ৩. দুই পাশে থার্ড ব্র্যাকেট বসিয়ে একটি ভ্যালিড JSON অ্যারে তৈরি করা
-    if (substr($clean_content, 0, 1) !== '[') {
-        $clean_content = '[' . $clean_content . ']';
-    }
-
-    // ৪. এবার ফ্রেশ JSON ডিকোড করা
-    $channels_array = json_decode($clean_content, true);
-
-    if (is_array($channels_array)) {
-        foreach ($channels_array as $channel) {
-            if (isset($channel['link'])) {
-                $channels[$index] = [
-                    'name'   => isset($channel['name']) ? trim($channel['name']) : "Channel " . $index,
-                    'logo'   => isset($channel['logo']) ? trim($channel['logo']) : "",
-                    'link'   => trim($channel['link']),
-                    'cookie' => isset($channel['cookie']) ? trim($channel['cookie']) : ""
-                ];
-                $index++;
-            }
-        }
-    }
-}
 
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-// --- রুট ১: প্রধান M3U প্লেলিস্ট আউটপুট ---
+// --- রুট ১: প্রধান M3U প্লেলিস্ট জেনারেট করা ---
 if (empty($id)) {
     header('Content-Type: application/vnd.apple.mpegurl');
     echo "#EXTM3U\n";
-    if (!empty($channels)) {
-        foreach ($channels as $idx => $channel) {
-            echo '#EXTINF:-1 tvg-logo="' . $channel['logo'] . '" group-title="Toffee Live" user-agent="Toffee (Linux; AndroidXMedia3/1.1.1)",' . $channel['name'] . "\n";
-            echo "https://" . $_SERVER['HTTP_HOST'] . "/?id=" . $idx . "\n";
-        }
+    foreach ($channels as $idx => $channel) {
+        echo '#EXTINF:-1 tvg-logo="' . $channel['logo'] . '" group-title="Toffee Live" user-agent="Toffee (Linux; AndroidXMedia3/1.1.1)",' . $channel['name'] . "\n";
+        echo "https://" . $_SERVER['HTTP_HOST'] . "/?id=" . $idx . "\n";
     }
     exit;
 }
 
-// --- রুট ২: নির্দিষ্ট আইডিতে প্লেয়ার রিডাইরেক্ট করা ---
+// --- রুট ২: প্লেয়ার রিডাইরেক্ট করা ---
 if (isset($channels[$id])) {
     $stream_url = $channels[$id]['link'];
     $cookie = $channels[$id]['cookie'];
@@ -78,7 +60,6 @@ if (isset($channels[$id])) {
     exit;
 }
 
-// --- রুট ৩: এরর হ্যান্ডেলিং ---
 header("HTTP/1.1 404 Not Found");
 header('Content-Type: text/plain');
 echo "Channel Not Found";
