@@ -1,5 +1,4 @@
 <?php
-// Set headers so IPTV players read this cleanly as an M3U stream
 header('Content-Type: application/vnd.apple.mpegurl');
 header('Access-Control-Allow-Origin: *');
 
@@ -14,39 +13,39 @@ curl_setopt($ch_main, CURLOPT_FOLLOWLOCATION, true);
 $m3u_content = curl_exec($ch_main);
 curl_close($ch_main);
 
-// Check if a specific channel request is called (e.g., /?id=atn_bangla or /?id=1)
-$id = isset($_GET['id']) ? $_GET['id'] : '';
-
-// Parse the M3U content into lines
-$lines = explode("\n", str_replace("\r", "", $m3u_content));
+// Clean up spacing and carriage returns
+$lines = explode("\n", str_replace("\r", "", trim($m3u_content)));
 $channels = [];
 $current_extinf = '';
+$index = 1;
 
-// Loop through lines to structure channels, links, and cookies
+// A robust loop that pairs any #EXTINF line directly with its following link
 foreach ($lines as $line) {
+    $line = trim($line);
+    if (empty($line)) continue;
+
     if (strpos($line, '#EXTINF:') === 0) {
         $current_extinf = $line;
-    } elseif (strpos($line, 'http') === 0) {
-        // Extract channel identifier name/slug from the URL safely
-        preg_match('/\/live\/([^\/]+)\//', $line, $matches);
-        $slug = isset($matches[1]) ? $matches[1] : md5($line);
-        
-        // Check if the next line or current entry contains a cookie string
-        $channels[$slug] = [
+    } elseif (strpos($line, 'http') === 0 && !empty($current_extinf)) {
+        // Create a unique numbered ID for each channel to make routing foolproof
+        $channels[$index] = [
             'extinf' => $current_extinf,
-            'link'   => trim($line),
-            // Look for inline cookie data if your file appends it, or defaults to your specific Toffee token
+            'link'   => $line,
             'cookie' => 'Edge-Cache-Cookie=URLPrefix=aHR0cHM6Ly9ibGRjbXByb2QtY2RuLnRvZmZlZWxpdmUuY29t:Expires=1782061882:KeyName=prod_linear:Signature=x4OhIfatfEytMuqTXo2ED6M7ti5UXykqlH85MLCjiyoUFgaawLqYdipQV93RF65lE9Z1DT8J3gjQWLEFWeTBCg'
         ];
+        $index++;
+        $current_extinf = ''; // Reset for next channel
     }
 }
 
-// IF NO ID IS PASSED: Output ALL channels converted to route through Vercel
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+
+// IF NO ID IS PASSED: Output ALL channels with index numbers mapped to Vercel URLs
 if (empty($id)) {
     echo "#EXTM3U\n";
-    foreach ($channels as $slug => $channel) {
+    foreach ($channels as $idx => $channel) {
         echo $channel['extinf'] . "\n";
-        echo "https://" . $_SERVER['HTTP_HOST'] . "/?id=" . $slug . "\n";
+        echo "https://" . $_SERVER['HTTP_HOST'] . "/?id=" . $idx . "\n";
     }
     exit;
 }
@@ -56,7 +55,6 @@ if (isset($channels[$id])) {
     $stream_url = $channels[$id]['link'];
     $cookie = $channels[$id]['cookie'];
     
-    // Connect to the stream manifest directly with dynamic signatures
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $stream_url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
