@@ -5,15 +5,32 @@ header('Access-Control-Allow-Origin: *');
 // The live auto-updating M3U URL containing all your channels
 $github_m3u_url = "https://raw.githubusercontent.com/hasanhabibmottakin/xxxxxxxxxxxxxxxxxx/refs/heads/main/ns.m3u";
 
-// Fetch the entire live playlist text from GitHub
+// Fetch the entire live playlist text from GitHub (with User-Agent to avoid blocks)
 $ch_main = curl_init();
 curl_setopt($ch_main, CURLOPT_URL, $github_m3u_url);
 curl_setopt($ch_main, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch_main, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($ch_main, CURLOPT_SSL_VERIFYPEER, false); // Bypasses SSL handshake blocks
+curl_setopt($ch_main, CURLOPT_HTTPHEADER, array(
+    "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+));
 $m3u_content = curl_exec($ch_main);
 curl_close($ch_main);
 
-// Clean up spacing and carriage returns
+// If curl fails or returns nothing, fall back to simple file_get_contents
+if (empty($m3u_content)) {
+    // Create custom header context to mimic a browser
+    $options = array(
+        'http' => array(
+            'method' => "GET",
+            'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)\r\n"
+        )
+    );
+    $context = stream_context_create($options);
+    $m3u_content = @file_get_contents($github_m3u_url, false, $context);
+}
+
+// Parse the M3U content into lines
 $lines = explode("\n", str_replace("\r", "", trim($m3u_content)));
 $channels = [];
 $current_extinf = '';
@@ -59,6 +76,7 @@ if (isset($channels[$id])) {
     curl_setopt($ch, CURLOPT_URL, $stream_url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
         "Cookie: " . $cookie,
         "User-Agent: Toffee (Linux; AndroidXMedia3/1.1.1)"
