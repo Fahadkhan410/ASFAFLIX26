@@ -1,13 +1,13 @@
 <?php
-// Set headers immediately before any code processing to prevent header injection errors
+// Enforce clean headers immediately before any payload outputs
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 header('Access-Control-Allow-Methods: GET, OPTIONS');
 
-// 1. Point directly to your repository file name layout
+// 1. Point directly to your active repository asset stream
 $github_data_url = "https://raw.githubusercontent.com/hasanhabibmottakin/ASFAFLIX26/refs/heads/main/toffee_channel_data.json";
 
-// 2. Fetch the data cleanly from GitHub
+// 2. Extract raw data safely using cURL
 $ch_main = curl_init();
 curl_setopt($ch_main, CURLOPT_URL, $github_data_url);
 curl_setopt($ch_main, CURLOPT_RETURNTRANSFER, true);
@@ -31,7 +31,7 @@ if (empty($raw_content)) {
     $raw_content = @file_get_contents($github_data_url, false, $context);
 }
 
-// 3. Robust regex parsing to map the raw JSON objects to correct numerical IDs
+// 3. Process the un-wrapped object strings cleanly using global regex matching
 $channels = [];
 $index = 1;
 
@@ -55,31 +55,32 @@ if (!empty($raw_content)) {
 
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-// --- ROUTE 1: MASTER M3U PLAYLIST OUTPUT ---
+// --- ROUTE 1: OUTPUT UNIFORM MASTER M3U PLAYLIST MAP ---
 if (empty($id)) {
     header('Content-Type: application/vnd.apple.mpegurl');
     echo "#EXTM3U\n";
     foreach ($channels as $idx => $channel) {
+        // Embed the specific custom user-agent parameters to enforce it on downstream devices
         echo '#EXTINF:-1 tvg-logo="' . $channel['logo'] . '" group-title="Toffee Live" user-agent="Toffee (Linux; AndroidXMedia3/1.1.1)",' . $channel['name'] . "\n";
         echo "https://" . $_SERVER['HTTP_HOST'] . "/?id=" . $idx . "\n";
     }
     exit;
 }
 
-// --- ROUTE 2: REDIRECT ROUTING FOR EXTERNAL PLAYERS ---
+// --- ROUTE 2: DIRECT CHANNEL REDIRECT FOR MEDIA APP ENGINES ---
 if (isset($channels[$id])) {
     $stream_url = $channels[$id]['link'];
     $cookie = $channels[$id]['cookie'];
     
-    // Pass the access cookie right to the player application context
+    // Inject the exact authorization token payload directly into the active tracking window
     header("Set-Cookie: " . $cookie . "; path=/; domain=toffeelive.com; Secure; HttpOnly");
     
-    // Redirect with status code 307 to keep the user-agent profile verified
-    header("Location: " . $stream_url, true, 307);
+    // Fire a clean 302 stream location hop 
+    header("Location: " . $stream_url, true, 302);
     exit;
 }
 
-// --- ROUTE 3: FALLBACK EXCEPTION ---
+// --- ROUTE 3: FALLBACK STANDARD EXCEPTION ---
 header("HTTP/1.1 404 Not Found");
 header('Content-Type: text/plain');
 echo "Channel Not Found";
