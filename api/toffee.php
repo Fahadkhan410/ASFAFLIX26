@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: application/vnd.apple.mpegurl');
+header('Content-Type: text/plain'); // Changed to text so you can read the error easily in your browser
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 
@@ -33,15 +33,11 @@ if (empty($raw_content)) {
 $channels = [];
 $index = 1;
 
-// Use regex matching to pull every JSON block {...} individually from your file text
 if (!empty($raw_content)) {
     preg_match_all('/\{[^}]+\}/', $raw_content, $matches);
-    
     if (!empty($matches[0])) {
         foreach ($matches[0] as $json_block) {
-            // Clean up loose commas inside individual block scopes
             $channel = json_decode($json_block, true);
-            
             if (isset($channel['link'])) {
                 $channels[$index] = [
                     'name'   => isset($channel['name']) ? trim($channel['name']) : "Channel " . $index,
@@ -59,6 +55,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
 
 // IF NO ID IS PASSED: Output the master clean playlist text map
 if (empty($id)) {
+    header('Content-Type: application/vnd.apple.mpegurl');
     echo "#EXTM3U\n";
     foreach ($channels as $idx => $channel) {
         echo '#EXTINF:-1 tvg-logo="' . $channel['logo'] . '" group-title="Toffee Live" user-agent="Toffee (Linux; AndroidXMedia3/1.1.1)",' . $channel['name'] . "\n";
@@ -67,7 +64,7 @@ if (empty($id)) {
     exit;
 }
 
-// IF A CHANNEL ID IS PASSED: Directly pull the manifest data using the correct authorization cookies
+// IF A CHANNEL ID IS PASSED: Directly pull the manifest data and print the RAW results
 if (isset($channels[$id])) {
     $stream_url = $channels[$id]['link'];
     $cookie = $channels[$id]['cookie'];
@@ -88,29 +85,16 @@ if (isset($channels[$id])) {
     ));
     
     $manifest_data = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
     
-    // Check if the manifest returned valid data from Toffee
-    if (!empty($manifest_data) && (strpos($manifest_data, '#EXTM3U') !== false || strpos($manifest_data, '#EXT-X') !== false)) {
-        $lines = explode("\n", $manifest_data);
-        foreach ($lines as &$line) {
-            $line = trim($line);
-            if (!empty($line) && strpos($line, '#') !== 0 && strpos($line, 'http') !== 0) {
-                if (strpos($line, '../') === 0) {
-                    $cleaned_base = substr($base_url, 0, -1); 
-                    $cleaned_base = substr($cleaned_base, 0, strrpos($cleaned_base, '/') + 1);
-                    $line = $cleaned_base . str_replace('../', '', $line);
-                } else {
-                    $line = $base_url . $line;
-                }
-            }
-        }
-        $manifest_data = implode("\n", $lines);
-        echo $manifest_data;
-    } else {
-        // Fallback info text if the cookie token signature has fully expired at the server
-        echo "#EXTM3U\n#EXTINF:-1,Token Signature Expired - Update GitHub Cookies\nhttps://example.com/offline.mp4";
-    }
+    // Print EXACTLY what the Toffee server returns to your Vercel engine
+    echo "--- DEBUG DATA ---\n";
+    echo "HTTP Status Code Received: " . $http_code . "\n";
+    echo "Target URL: " . $stream_url . "\n";
+    echo "Cookie Used: " . $cookie . "\n";
+    echo "--- RAW RESPONSE CONTENT ---\n";
+    echo $manifest_data;
     exit;
 }
 
