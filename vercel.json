@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/play/:channel.m3u8",
+      "destination": "/api/play?channel=:channel"
+    },
+    {
+      "source": "/play/:channel/:segment*",
+      "destination": "/api/play?channel=:channel&segment=:segment*"
+    }
+  ]
+}
