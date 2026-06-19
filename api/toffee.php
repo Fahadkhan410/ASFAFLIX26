@@ -1,6 +1,8 @@
 <?php
-// Force clear headers so standard players don't hit cache loops
+// Set explicit headers so video engines interpret this as a real live stream
+header('Content-Type: application/vnd.apple.mpegurl');
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: *');
 
 // The live auto-updating data URL containing your JSON layout
 $github_data_url = "https://raw.githubusercontent.com/hasanhabibmottakin/xxxxxxxxxxxxxxxxxx/refs/heads/main/ns.m3u";
@@ -57,24 +59,58 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
 
 // IF NO ID IS PASSED: Output the master M3U file cleanly
 if (empty($id)) {
-    header('Content-Type: application/vnd.apple.mpegurl');
     echo "#EXTM3U\n";
     foreach ($channels as $idx => $channel) {
-        // Appending the user-agent parameter right inside the playlist tells video players to use it
+        // Embed the specific custom Toffee user-agent tag parameters natively inside the playlist block
         echo '#EXTINF:-1 tvg-logo="' . $channel['logo'] . '" group-title="Toffee Live" user-agent="Toffee (Linux; AndroidXMedia3/1.1.1)",' . $channel['name'] . "\n";
         echo "https://" . $_SERVER['HTTP_HOST'] . "/?id=" . $idx . "\n";
     }
     exit;
 }
 
-// IF A CHANNEL ID IS PASSED: Perform an HTTP 302 redirect directly to the streaming link
+// IF A CHANNEL ID IS PASSED: Serve as a reverse proxy, embedding cookies securely inside the stream download request
 if (isset($channels[$id])) {
     $stream_url = $channels[$id]['link'];
     $cookie = $channels[$id]['cookie'];
     
-    // Inject the cookie right into the header of the redirected link so players capture it immediately
-    header("Location: " . $stream_url);
-    header("Set-Cookie: " . $cookie . "; path=/; domain=toffeelive.com; Secure; HttpOnly");
+    // Extract base URL directory structure to rewrite relative manifest tracks later
+    $base_url = substr($stream_url, 0, strrpos($stream_url, '/') + 1);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $stream_url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        "Cookie: " . $cookie,
+        "User-Agent: Toffee (Linux; AndroidXMedia3/1.1.1)",
+        "Origin: https://toffeelive.com",
+        "Referer: https://toffeelive.com/"
+    ));
+    
+    $manifest_data = curl_exec($ch);
+    curl_close($ch);
+    
+    // CRITICAL: Reconstruct relative .m3u8 lines into absolute links so your player knows exactly where to request chunks
+    if (!empty($manifest_data)) {
+        $lines = explode("\n", $manifest_data);
+        foreach ($lines as &$line) {
+            $line = trim($line);
+            if (!empty($line) && strpos($line, '#') !== 0 && strpos($line, 'http') !== 0) {
+                // If it's a relative pathway (like ../slang/mono.m3u8), clean it up and append base URL
+                if (strpos($line, '../') === 0) {
+                    $cleaned_base = substr($base_url, 0, -1); 
+                    $cleaned_base = substr($cleaned_base, 0, strrpos($cleaned_base, '/') + 1);
+                    $line = $cleaned_base . str_replace('../', '', $line);
+                } else {
+                    $line = $base_url . $line;
+                }
+            }
+        }
+        $manifest_data = implode("\n", $lines);
+    }
+    
+    echo $manifest_data;
     exit;
 }
 
