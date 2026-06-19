@@ -1,40 +1,41 @@
-import fetch from 'node-fetch'; // যদি পুরনো Node সংস্করণ হয়, নতুবা বিল্ট-ইন fetch কাজ করবে
-
 export default async function handler(req, res) {
+  // আসল গিটহাব m3u লিংকটি এখানে বসান (xxxxxxxxxx এর জায়গায় আপনার সঠিক লিংক দিন)
   const sourceM3uUrl = 'https://raw.githubusercontent.com/hasanhabibmottakin/xxxxxxxxxxxxxxxxxx/refs/heads/main/ns.m3u';
   const targetDomain = 'https://asfaflix.vercel.app/play/';
 
   try {
-    // ১. প্রথম লিংক থেকে লেটেস্ট m3u ডাটা ফেচ করা হচ্ছে (অটো-আপডেট)
+    // Node.js এর বিল্ট-ইন fetch ব্যবহার করা হচ্ছে, তাই কোনো এক্সট্রা প্যাকেজ লাগবে না
     const response = await fetch(sourceM3uUrl);
-    if (!response.ok) throw new Error('Source M3U fetch failed');
+    
+    if (!response.ok) {
+      return res.status(response.status).json({ error: `Failed to fetch source M3U. Status: ${response.status}` });
+    }
+    
     const m3uText = await response.text();
 
-    // ২. মেইন লজিক: লাইনের ভেতরের চ্যানেল আইডি বা নাম বের করে আপনার ডোমেইনে রূপান্তর
+    // মেইন লজিক: ম্যাপ করে লিংক পরিবর্তন
     const lines = m3uText.split('\n');
     const updatedLines = lines.map(line => {
-      line = line.trim();
+      const trimmedLine = line.trim();
       
-      // যদি লাইনটি কোনো লিংকের হয় (http দিয়ে শুরু হয়)
-      if (line.startsWith('http')) {
-        // লিংকের একদম শেষের অংশ (যেমন: atn_bangla.m3u8) আলাদা করা হচ্ছে
-        const urlParts = line.split('/');
+      if (trimmedLine.startsWith('http')) {
+        // লিংকের শেষের ফাইলের নাম বের করা (যেমন: atn_bangla.m3u8)
+        const urlParts = trimmedLine.split('/');
         const fileName = urlParts[urlParts.length - 1]; 
         
-        // আপনার নতুন লিংক ফরম্যাট রিটার্ন করছে
         return `${targetDomain}${fileName}`;
       }
       
-      // #EXTM3U বা #EXTINF লাইনে কোনো পরিবর্তন হবে না
       return line;
     });
 
-    // ৩. রেসপন্সটিকে M3U প্লেলিস্ট হিসেবে ব্রাউজারে পাঠানো
+    // সঠিক হেডার সেট করা যাতে আইপিটিভি প্লেয়ার বা ব্রাউজার এটিকে ফাইল হিসেবে চেনে
     res.setHeader('Content-Type', 'audio/x-mpegurl');
-    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate'); // ক্যাশ কন্ট্রোল (যাতে বারবার লোড হতে সময় না নেয়)
-    res.status(200).send(updatedLines.join('\n'));
+    res.setHeader('Cache-Control', 's-maxage=30, stale-while-revalidate'); 
+    
+    return res.status(200).send(updatedLines.join('\n'));
 
   } catch (error) {
-    res.status(500).send('Error generating live playlist: ' + error.message);
+    return res.status(500).json({ error: 'Internal Error: ' + error.message });
   }
 }
