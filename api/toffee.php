@@ -1,13 +1,12 @@
 <?php
-// হেডার ইনফরমেশন সেটআপ
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 header('Access-Control-Allow-Methods: GET, OPTIONS');
 
-// গিটহাব ডাটা সোর্স ইউআরএল
+// গিটহাবের ফাইল লিংক
 $github_data_url = "https://raw.githubusercontent.com/hasanhabibmottakin/ASFAFLIX26/refs/heads/main/ns.m3u";
 
-// গিটহাব থেকে ডাটা রিড করা
+// ফাইল রিড করা
 $opts = [
     "http" => [
         "method" => "GET",
@@ -25,19 +24,20 @@ $channels = [];
 $index = 1;
 
 if (!empty($raw_content)) {
-    // ডাটার আশেপাশের খালি জায়গা এবং অতিরিক্ত কমা পরিষ্কার করা
+    // ১. ফাইলের ভেতরের স্পেস বা নতুন লাইন পরিষ্কার করা
     $clean_content = trim($raw_content);
-    $clean_content = rtrim($clean_content, ',');
-
-    // যদি ফাইলে থার্ড ব্র্যাকেট [] না থাকে, তবে কোড দিয়ে দুই পাশে ব্র্যাকেট বসিয়ে ভ্যালিড করা
+    
+    // ২. সবচেয়ে গুরুত্বপূর্ণ অংশ: কমা ছাড়া { }{ } থাকলে সেগুলোর মাঝে কমা ( , ) বসানো
+    $clean_content = preg_replace('/\}\s*\{/', '},{', $clean_content);
+    
+    // ৩. দুই পাশে থার্ড ব্র্যাকেট বসিয়ে একটি ভ্যালিড JSON অ্যারে তৈরি করা
     if (substr($clean_content, 0, 1) !== '[') {
         $clean_content = '[' . $clean_content . ']';
     }
 
-    // JSON ডিকোড করা
+    // ৪. এবার ফ্রেশ JSON ডিকোড করা
     $channels_array = json_decode($clean_content, true);
 
-    // ডাটা সঠিকভাবে অ্যারেতে রূপান্তর হলে ইনডেক্সিং করা
     if (is_array($channels_array)) {
         foreach ($channels_array as $channel) {
             if (isset($channel['link'])) {
@@ -55,7 +55,7 @@ if (!empty($raw_content)) {
 
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-// --- রুট ১: প্রধান M3U প্লেলিস্ট জেনারেট করা ---
+// --- রুট ১: প্রধান M3U প্লেলিস্ট আউটপুট ---
 if (empty($id)) {
     header('Content-Type: application/vnd.apple.mpegurl');
     echo "#EXTM3U\n";
@@ -73,13 +73,12 @@ if (isset($channels[$id])) {
     $stream_url = $channels[$id]['link'];
     $cookie = $channels[$id]['cookie'];
     
-    // কুকি পাস করা এবং প্লেয়ারে ৩-২ রিডাইরেক্ট পাঠানো
     header("Set-Cookie: " . $cookie . "; path=/; domain=toffeelive.com; Secure; HttpOnly");
     header("Location: " . $stream_url, true, 302);
     exit;
 }
 
-// --- রুট ৩: চ্যানেল খুঁজে না পাওয়া গেলে এরর ---
+// --- রুট ৩: এরর হ্যান্ডেলিং ---
 header("HTTP/1.1 404 Not Found");
 header('Content-Type: text/plain');
 echo "Channel Not Found";
