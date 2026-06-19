@@ -30,32 +30,27 @@ if (empty($raw_content)) {
     $raw_content = @file_get_contents($github_data_url, false, $context);
 }
 
-// Clean up whitespace strings
-$raw_content = trim($raw_content);
-
-// FORCE-FIX: If the text is missing array brackets, wrap it cleanly on the fly so PHP can read it
-if (!empty($raw_content)) {
-    if (substr($raw_content, 0, 1) !== '[') {
-        // Trim off trailing commas if they exist before wrapping
-        $raw_content = '[' . rtrim($raw_content, ',') . ']';
-    }
-}
-
-// Decode the array list natively
-$channels_array = json_decode($raw_content, true);
-
 $channels = [];
-if (is_array($channels_array)) {
-    $index = 1;
-    foreach ($channels_array as $channel) {
-        if (isset($channel['link'])) {
-            $channels[$index] = [
-                'name'   => isset($channel['name']) ? $channel['name'] : "Channel " . $index,
-                'logo'   => isset($channel['logo']) ? $channel['logo'] : "",
-                'link'   => trim($channel['link']),
-                'cookie' => isset($channel['cookie']) ? trim($channel['cookie']) : ""
-            ];
-            $index++;
+$index = 1;
+
+// Use regex matching to pull every JSON block {...} individually from your file text
+if (!empty($raw_content)) {
+    preg_match_all('/\{[^}]+\}/', $raw_content, $matches);
+    
+    if (!empty($matches[0])) {
+        foreach ($matches[0] as $json_block) {
+            // Clean up loose commas inside individual block scopes
+            $channel = json_decode($json_block, true);
+            
+            if (isset($channel['link'])) {
+                $channels[$index] = [
+                    'name'   => isset($channel['name']) ? trim($channel['name']) : "Channel " . $index,
+                    'logo'   => isset($channel['logo']) ? trim($channel['logo']) : "",
+                    'link'   => trim($channel['link']),
+                    'cookie' => isset($channel['cookie']) ? trim($channel['cookie']) : ""
+                ];
+                $index++;
+            }
         }
     }
 }
@@ -72,7 +67,7 @@ if (empty($id)) {
     exit;
 }
 
-// IF A CHANNEL ID IS PASSED: Intercept streaming headers and relay manifest 
+// IF A CHANNEL ID IS PASSED: Directly pull the manifest data using the correct authorization cookies
 if (isset($channels[$id])) {
     $stream_url = $channels[$id]['link'];
     $cookie = $channels[$id]['cookie'];
@@ -95,7 +90,8 @@ if (isset($channels[$id])) {
     $manifest_data = curl_exec($ch);
     curl_close($ch);
     
-    if (!empty($manifest_data) && strpos($manifest_data, '#EXTM3U') !== false) {
+    // Check if the manifest returned valid data from Toffee
+    if (!empty($manifest_data) && (strpos($manifest_data, '#EXTM3U') !== false || strpos($manifest_data, '#EXT-X') !== false)) {
         $lines = explode("\n", $manifest_data);
         foreach ($lines as &$line) {
             $line = trim($line);
@@ -112,8 +108,8 @@ if (isset($channels[$id])) {
         $manifest_data = implode("\n", $lines);
         echo $manifest_data;
     } else {
-        // Fallback error messaging
-        echo "#EXTM3U\n#EXTINF:-1,Token Expired or Layout Sync Issue\nhttps://example.com/offline.mp4";
+        // Fallback info text if the cookie token signature has fully expired at the server
+        echo "#EXTM3U\n#EXTINF:-1,Token Signature Expired - Update GitHub Cookies\nhttps://example.com/offline.mp4";
     }
     exit;
 }
