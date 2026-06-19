@@ -1,5 +1,4 @@
 <?php
-// Force clear headers so standard players interpret this as a live stream map
 header('Content-Type: application/vnd.apple.mpegurl');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
@@ -7,13 +6,13 @@ header('Access-Control-Allow-Headers: *');
 // The live auto-updating data URL containing your JSON layout
 $github_data_url = "https://raw.githubusercontent.com/hasanhabibmottakin/xxxxxxxxxxxxxxxxxx/refs/heads/main/ns.m3u";
 
-// Fetch the raw JSON content from GitHub
+// Fetch the raw content from GitHub
 $ch_main = curl_init();
 curl_setopt($ch_main, CURLOPT_URL, $github_data_url);
 curl_setopt($ch_main, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch_main, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($ch_main, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch_main, CURLOPT_ENCODING, ''); // Handles gzip if your github raw stream is compressed
+curl_setopt($ch_main, CURLOPT_ENCODING, ''); 
 curl_setopt($ch_main, CURLOPT_HTTPHEADER, array(
     "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 ));
@@ -31,14 +30,19 @@ if (empty($raw_content)) {
     $raw_content = @file_get_contents($github_data_url, false, $context);
 }
 
-$channels_array = json_decode($raw_content, true);
+// Clean up whitespace strings
+$raw_content = trim($raw_content);
 
-if (empty($channels_array) && !empty($raw_content)) {
-    if (substr(trim($raw_content), 0, 1) !== '[') {
-        $fixed_json = '[' . rtrim(trim($raw_content), ',') . ']';
-        $channels_array = json_decode($fixed_json, true);
+// FORCE-FIX: If the text is missing array brackets, wrap it cleanly on the fly so PHP can read it
+if (!empty($raw_content)) {
+    if (substr($raw_content, 0, 1) !== '[') {
+        // Trim off trailing commas if they exist before wrapping
+        $raw_content = '[' . rtrim($raw_content, ',') . ']';
     }
 }
+
+// Decode the array list natively
+$channels_array = json_decode($raw_content, true);
 
 $channels = [];
 if (is_array($channels_array)) {
@@ -58,7 +62,7 @@ if (is_array($channels_array)) {
 
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-// IF NO ID IS PASSED: Output the master M3U file cleanly
+// IF NO ID IS PASSED: Output the master clean playlist text map
 if (empty($id)) {
     echo "#EXTM3U\n";
     foreach ($channels as $idx => $channel) {
@@ -68,12 +72,11 @@ if (empty($id)) {
     exit;
 }
 
-// IF A CHANNEL ID IS PASSED: Act as a proxy and decompress the playlist text data
+// IF A CHANNEL ID IS PASSED: Intercept streaming headers and relay manifest 
 if (isset($channels[$id])) {
     $stream_url = $channels[$id]['link'];
     $cookie = $channels[$id]['cookie'];
     
-    // Extract base URL directory structure to rewrite relative manifest tracks later
     $base_url = substr($stream_url, 0, strrpos($stream_url, '/') + 1);
 
     $ch = curl_init();
@@ -81,7 +84,7 @@ if (isset($channels[$id])) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_ENCODING, ''); // CRITICAL: Force cURL to decode compressed Toffee server responses
+    curl_setopt($ch, CURLOPT_ENCODING, ''); 
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
         "Cookie: " . $cookie,
         "User-Agent: Toffee (Linux; AndroidXMedia3/1.1.1)",
@@ -92,8 +95,7 @@ if (isset($channels[$id])) {
     $manifest_data = curl_exec($ch);
     curl_close($ch);
     
-    // If the data fetched is valid, reconstruct the internal video tracks cleanly
-    if (!empty($manifest_data)) {
+    if (!empty($manifest_data) && strpos($manifest_data, '#EXTM3U') !== false) {
         $lines = explode("\n", $manifest_data);
         foreach ($lines as &$line) {
             $line = trim($line);
@@ -110,8 +112,8 @@ if (isset($channels[$id])) {
         $manifest_data = implode("\n", $lines);
         echo $manifest_data;
     } else {
-        // Fallback info text instead of a blank page if stream signature expired entirely
-        echo "#EXTM3U\n#EXTINF:-1,Stream Currently Offline or Expired Token\nhttps://example.com/offline.mp4";
+        // Fallback error messaging
+        echo "#EXTM3U\n#EXTINF:-1,Token Expired or Layout Sync Issue\nhttps://example.com/offline.mp4";
     }
     exit;
 }
