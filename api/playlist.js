@@ -1,10 +1,11 @@
 export default async function handler(req, res) {
-  const sourceJsonUrl = 'https://raw.githubusercontent.com/hasanhabibmottakin/xxxxxxxxxxxxxxxxxx/refs/heads/main/ns.m3u'; // আপনার সঠিক গিটহাব লিংক দিন
+  // আপনার সঠিক গিটহাব লিংকটি বসান (xxxxxxxxxx এর জায়গায় আপনার সঠিক মান দিন)
+  const sourceJsonUrl = 'https://raw.githubusercontent.com/hasanhabibmottakin/xxxxxxxxxxxxxxxxxx/refs/heads/main/ns.m3u';
   const targetDomain = 'https://asfaflix.vercel.app/play/';
 
   try {
     const response = await fetch(sourceJsonUrl);
-    if (!response.ok) throw new Error('Source fetch failed');
+    if (!response.ok) throw new Error('GitHub fetch failed');
     const channels = await response.json();
 
     let m3uContent = '#EXTM3U\n';
@@ -15,11 +16,12 @@ export default async function handler(req, res) {
       const originalLink = channel.link || '';
 
       if (originalLink) {
-        // মূল লিংক থেকে চ্যানেলের ইউনিক আইডি বের করা
+        // লিংক থেকে চ্যানেলের আইডি বের করা
         const urlParts = originalLink.split('/');
         const channelId = urlParts[urlParts.length - 2]; 
 
         m3uContent += `#EXTINF:-1 tvg-name="${name}" tvg-logo="${logo}",${name}\n`;
+        // আপনার কাঙ্ক্ষিত নতুন ডোমেইন লিংক
         m3uContent += `${targetDomain}${channelId}.m3u8\n`;
       }
     });
