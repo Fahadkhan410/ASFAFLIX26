@@ -1,12 +1,13 @@
 {
+  "version": 2,
   "rewrites": [
     {
       "source": "/play/:channel.m3u8",
       "destination": "/api/play?channel=:channel"
     },
     {
-      "source": "/play/:channel/:segment*",
-      "destination": "/api/play?channel=:channel&segment=:segment*"
+      "source": "/play/:channel/:path*",
+      "destination": "/api/play?channel=:channel&path=:path*"
     }
   ]
 }
