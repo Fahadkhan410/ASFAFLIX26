@@ -6,8 +6,12 @@
   },
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/api/stream.php",
       "dest": "api/stream.php"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
