@@ -1,14 +1,9 @@
 {
   "version": 2,
-  "functions": {
-    "api/stream.php": {
-      "runtime": "vercel-php@0.8.0"
-    }
-  },
   "routes": [
     {
-      "src": "/api/stream.php",
-      "dest": "api/stream.php"
+      "src": "/api/stream.js",
+      "dest": "api/stream.js"
     },
     {
       "src": "/(.*)",
