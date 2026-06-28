@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     const baseUrl = "http://180.94.28.28:8097/PTV-Sports/index.m3u8";
     
     // ⚠️ CRITICAL: Replace this string with your current, working token!
-    const currentToken = "YOUR_ACTIVE_TOKEN_HERE"; 
+    const currentToken = "?token="; 
     
     const targetUrl = `${baseUrl}?token=${currentToken}`;
 
