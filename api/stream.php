@@ -1,40 +1,31 @@
 <?php
-// api/stream.php
+// Ensure errors are hidden from the browser but don't halt compiling
+error_reporting(0);
+ini_set('display_errors', 0);
 
-// Disable execution time limits for the serverless function
-set_time_limit(0);
-
-// 1. Define your base stream URL (without the token)
+// 1. Target URL setup
 $baseUrl = "http://180.94.28.28:8097/PTV-Sports/index.m3u8";
-
-// 2. Insert your active token
-$currentToken = "YOUR_ACTIVE_TOKEN_HERE"; 
+$currentToken = "YOUR_ACTIVE_TOKEN_HERE"; // Make sure this is updated!
 $targetUrl = $baseUrl . "?token=" . $currentToken;
 
-// 3. Set standard HLS headers
+// 2. Standard HLS Response Headers
 header('Content-Type: application/x-mpegURL');
-header('Cache-Control: no-cache, must-revalidate');
-header('Access-Control-Allow-Origin: *'); 
+header('Cache-Control: no-cache, no-store, must-revalidate');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET');
 
-// 4. Fetch the stream using cURL
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $targetUrl);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-curl_setopt($ch, CURLOPT_TIMEOUT, 15);
-$playlistContent = curl_exec($ch);
-curl_close($ch);
+// 3. Simple stream fetch
+$playlistContent = file_get_contents($targetUrl);
 
 if ($playlistContent === FALSE) {
-    header("HTTP/1.0 500 Internal Server Error");
-    echo "#EXTM3U\n#EXT-X-ERROR: Unable to fetch stream source.";
+    echo "#EXTM3U\n#EXT-X-ERROR: Source stream unavailable or token expired.";
     exit;
 }
 
-// 5. Rewrite chunk paths to point back to the original source with the token appended
+// 4. Rewrite absolute chunk URLs
 $streamPath = "http://180.94.28.28:8097/PTV-Sports/";
 $rewrittenContent = preg_replace('/^(?!http)(.+)$/m', $streamPath . '$1?token=' . $currentToken, $playlistContent);
 
-// 6. Output the updated playlist
+// 5. Return output
 echo $rewrittenContent;
-?>
+exit;
