@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
     // 1. Base URL config
-    const baseUrl = "http://180.94.28.28:8097/PTV-Sports/index.m3u8";
+    const baseUrl = "http://180.94.28.28:8097/PTV-Sports/index.m3u8?token=";
     
     // ⚠️ CRITICAL: Replace this string with your current, working token!
     const currentToken = "?token="; 
