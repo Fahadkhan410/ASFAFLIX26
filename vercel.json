@@ -1,4 +1,5 @@
 {
+  "version": 2,
   "functions": {
     "api/stream.php": {
       "runtime": "vercel-php@0.8.0"
