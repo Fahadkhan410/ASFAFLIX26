@@ -1,1 +1,370 @@
-<source src="/api/stream.js" type="application/x-mpegURL">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANURAG TV LIVE</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://vjs.zencdn.net">
+    <link rel="preconnect" href="https://cdn.fluidplayer.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VTNHF7TQMV"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VTNHF7TQMV');</script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.css" type="text/css"/>
+    
+    <style>
+        body,html{margin:0;padding:0;width:100%;height:100%;background-color:#050505;overflow:hidden;font-family:'Hind Siliguri','Inter',sans-serif;color:#fff}
+        
+        #vjs-wrapper, #fluid-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        #fluid-wrapper { display: none; background: #000; z-index: 1; }
+        #vjs-wrapper { z-index: 2; }
+        
+        .fluid_video_wrapper { width: 100% !important; height: 100% !important; }
+        .video-js{width:100%!important;height:100%!important;background-color:transparent}
+        
+        /* Sticky Notification Bar */
+        .sticky-notice {
+            position: fixed; top: 0; left: 0; width: 100%; background: linear-gradient(90deg, #ff2a2a, #c62828);
+            color: #fff; text-align: center; padding: 10px 40px 10px 15px; font-size: 15px; font-weight: 600;
+            z-index: 1000000; box-sizing: border-box; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5); font-family: 'Hind Siliguri', sans-serif; transition: all 0.3s ease;
+        }
+        .sticky-notice span { flex: 1; }
+        .sticky-notice .close-btn {
+            position: absolute; right: 15px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2); color: white;
+            font-size: 18px; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; transition: all 0.3s ease; padding: 0; line-height: 1;
+        }
+        .sticky-notice .close-btn:hover { background: rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.5); transform: scale(1.1); }
+        
+        /* Video.js Premium Control Bar styling with CC and PiP fit */
+        .video-js .vjs-control-bar{background:rgba(18,18,18,.85)!important;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.08);border-radius:40px!important;bottom:30px!important;left:50%!important;transform:translateX(-50%)!important;width:calc(100% - 60px)!important;max-width:850px!important;height:56px!important;display:flex!important;align-items:center!important;padding:0 15px!important;box-shadow:0 15px 35px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);transition:opacity .4s ease,transform .4s ease}
+        .video-js .vjs-button{width:40px!important;height:40px!important;display:flex!important;align-items:center!important;justify-content:center!important;border-radius:50%!important;margin:0 3px!important;transition:all .2s ease;background:0 0!important}
+        .video-js .vjs-button:hover{background:rgba(255,255,255,.15)!important}
+        .video-js .vjs-icon-placeholder:before{font-size:1.5em!important;line-height:1!important;display:flex;align-items:center;justify-content:center}
+        
+        .video-js .vjs-volume-panel{display:flex!important;align-items:center!important;width:auto!important}
+        .video-js .vjs-volume-panel .vjs-volume-control{display:flex!important;align-items:center!important;height:100%!important}
+        
+        /* PiP Button Position styling */
+        .video-js .vjs-picture-in-picture-control { display: flex !important; }
+        .video-js .vjs-subs-caps-button { display: flex !important; } /* CC Button */
+        
+        .video-js .vjs-live-control, .video-js .vjs-live-display { display: none !important; }
+        .vjs-current-time, .vjs-duration, .vjs-remaining-time, .vjs-time-divider { display: none !important; }
+        
+        /* SLEEK PROGRESS BAR */
+        .video-js .vjs-progress-control { display: flex !important; flex: auto; align-items: center; margin: 0 10px; }
+        .video-js .vjs-progress-holder { height: 6px; border-radius: 4px; background: rgba(255,255,255,0.2); }
+        .video-js .vjs-play-progress { background-color: #ff2a2a; border-radius: 4px; }
+        .video-js .vjs-play-progress:before { font-size: 14px; top: -4px; color: #ff2a2a; }
+        .video-js .vjs-load-progress { background: rgba(255,255,255,0.1) !important; border-radius: 4px; }
+        .video-js .vjs-load-progress div { background: rgba(255,255,255,0.15) !important; border-radius: 4px; }
+
+        /* Global UI Elements */
+        .global-live-indicator-box {
+            position: absolute; left: 50%; transform: translateX(-50%); z-index: 99999;
+            display: flex; align-items: center; gap: 8px; pointer-events: none;
+            background: rgba(0,0,0,0.4); padding: 5px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            top: 25px; transition: top 0.3s ease;
+        }
+        .social-box {
+            position:absolute; left:30px; z-index:9999; display:flex; flex-direction:column; gap:10px;
+            background:rgba(15,15,15,.6); backdrop-filter:blur(12px); padding:12px; border-radius:16px; 
+            border:1px solid rgba(255,255,255,.08); box-shadow:0 10px 30px rgba(0,0,0,.3);
+            top: 30px; transition: top 0.3s ease;
+        }
+        .server-box {
+            position:absolute; right:30px; z-index:9999; display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;
+            background:rgba(15,15,15,.6); backdrop-filter:blur(12px); padding:8px 12px; border-radius:40px; 
+            border:1px solid rgba(255,255,255,.08); box-shadow:0 10px 30px rgba(0,0,0,.3);
+            top: 30px; transition: top 0.3s ease;
+        }
+
+        /* Adjusted positions when Sticky Notice is active */
+        body.has-notice .global-live-indicator-box { top: 55px; }
+        body.has-notice .social-box { top: 55px; }
+        body.has-notice .server-box { top: 55px; }
+
+        .global-live-badge {
+            background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 20px;
+            padding: 0 14px; height: 32px; display: flex; align-items: center;
+            font-size: 12px; font-weight: 700; letter-spacing: .5px; color: #fff; text-transform: uppercase;
+        }
+        .global-live-badge::before {
+            content: ''; display: inline-block; width: 8px; height: 8px; background-color: #ff2a2a;
+            border-radius: 50%; margin-right: 8px; box-shadow: 0 0 8px rgba(255, 42, 42, 0.8);
+            animation: pulse-dot 1.5s infinite;
+        }
+        .vjs-view-counter{
+            display:flex!important;align-items:center!important;color:#ff4d4d!important;font-size:13px!important;
+            font-weight:600!important;background:rgba(76, 175, 80, 0.05); padding:0 12px!important;height:32px!important;
+            border-radius:20px!important;border:1px solid rgba(255,77,77,.2)!important;
+        }
+        .vjs-view-counter svg{margin-right:6px}
+        @keyframes pulse-dot{0%{transform:scale(.95);box-shadow:0 0 0 0 rgba(255,42,42,.7)}70%{transform:scale(1);box-shadow:0 0 0 6px rgba(255,42,42,0)}100%{transform:scale(.95);box-shadow:0 0 0 0 rgba(255,42,42,0)}}
+
+        .fluid_controls_container{background:rgba(18,18,18,.85)!important;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.08);border-radius:40px!important;bottom:30px!important;left:50%!important;transform:translateX(-50%)!important;width:calc(100% - 60px)!important;max-width:850px!important;height:56px!important;box-shadow:0 15px 35px rgba(0,0,0,.5);padding:0 10px}
+        
+        .social-btn{display:flex;align-items:center;gap:10px;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:600;color:#fff;text-decoration:none;transition:.3s}
+        .btn-fb{background:rgba(24,119,242,.2);border:1px solid rgba(24,119,242,.4);color:#6db0ff}.btn-fb:hover{background:#1877F2;color:#fff}
+        .btn-tg{background:rgba(34,158,217,.2);border:1px solid rgba(34,158,217,.4);color:#6fc8ff}.btn-tg:hover{background:#229ED9;color:#fff}
+        .close-social{align-self:flex-end;background:0 0;border:none;color:#888;font-size:16px;cursor:pointer;margin:-5px 0;transition:.2s}.close-social:hover{color:#fff}
+        
+        .server-btn{background:0 0;color:#aaa;padding:8px 16px;border-radius:30px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;border:none;position:relative;}
+        .server-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+        .server-btn.active{background:#ff2a2a;color:#fff;box-shadow:0 4px 15px rgba(255,42,42,.4);font-weight:700}
+        
+        .badge-hd::after { content: 'HD'; position: absolute; top: -6px; right: -4px; background: #00d2ff; color: #000; font-size: 9px; font-weight: 800; padding: 2px 5px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        .badge-4k::after { content: '4K'; position: absolute; top: -6px; right: -4px; background: #FFD700; color: #000; font-size: 9px; font-weight: 800; padding: 2px 5px; border-radius: 8px; box-shadow: 0 2px 5px rgba(255,215,0,0.5); }
+
+        #content-locker{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:99999;display:none;align-items:center;justify-content:center}
+        .locker-box{background:linear-gradient(145deg,rgba(25,25,25,.95),rgba(12,12,12,.98));border:1px solid rgba(255,255,255,.05);padding:50px 35px;border-radius:30px;text-align:center;box-shadow:0 30px 60px rgba(0,0,0,.8),0 0 40px rgba(24,119,242,.1),inset 0 1px 0 rgba(255,255,255,.05);max-width:420px;width:90%;position:relative;overflow:hidden;animation:popIn .6s forwards}
+        @keyframes popIn{0%{transform:scale(.8) translateY(20px);opacity:0}100%{transform:scale(1) translateY(0);opacity:1}}
+        .locker-box::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#1877F2,#00d2ff,#1877F2);box-shadow:0 2px 15px rgba(0,210,255,.5)}
+        .lock-icon{background:linear-gradient(135deg,rgba(24,119,242,.15),rgba(0,210,255,.05));width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 25px;color:#00d2ff;border:1px solid rgba(0,210,255,.2);animation:iconPulse 2s infinite}
+        @keyframes iconPulse{0%,100%{box-shadow:0 0 0 0 rgba(24,119,242,0)}70%{box-shadow:0 0 0 20px rgba(24,119,242,0)}}
+        .locker-box h2{font-size:26px;margin:0 0 12px;color:#fff;font-weight:700}
+        .locker-box p{font-size:17px;color:#a3a3a3;margin:0 0 35px;line-height:1.6;font-weight:500}
+        .locker-fb-btn{display:flex;align-items:center;justify-content:center;gap:12px;background:linear-gradient(135deg,#1877F2,#145dbf);color:#fff;padding:16px 20px;border-radius:16px;font-weight:600;text-decoration:none;border:none;width:100%;font-size:18px;cursor:pointer;transition:all .3s ease;font-family:'Hind Siliguri',sans-serif}
+        .locker-fb-btn:hover{background:linear-gradient(135deg,#166fe5,#114e9f);transform:translateY(-3px)}
+        .countdown-text{font-size:18px;font-weight:600;color:#4CAF50;display:none;margin-top:25px;background:rgba(76,175,80,.1);padding:14px;border-radius:12px;border:1px solid rgba(76,175,80,.2)}
+        
+        /* ================= MOBILE RESPONSIVE TWEAKS ================= */
+        @media (max-width:768px){
+            .sticky-notice { font-size: 13px; padding: 10px 40px 10px 10px; }
+            .sticky-notice .close-btn { right: 8px; width: 24px; height: 24px; font-size: 16px; }
+            
+            .social-box{padding:10px;transform:scale(.85);transform-origin:top left}
+            .server-box{flex-direction:row;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch}
+            .server-box::-webkit-scrollbar{display:none}.server-btn{white-space:nowrap; margin-top:5px;}
+            
+            /* Responsive UI for added CC and PiP buttons */
+            .video-js .vjs-control-bar{width:96%!important;bottom:15px!important;height:48px!important;padding:0 5px!important}
+            .video-js .vjs-button{width:30px!important;height:30px!important;margin:0 2px!important}
+            .video-js .vjs-icon-placeholder:before{font-size:1.3em!important}
+            .video-js .vjs-progress-control { margin: 0 4px !important; }
+            
+            .fluid_controls_container{width:96%!important;bottom:15px!important;height:48px!important}
+            
+            .global-live-indicator-box { top: 15px; transform: translateX(-50%) scale(0.9); padding: 4px 8px; }
+            .social-box { top: 15px; left: 10px; }
+            .server-box { top: auto; bottom: 80px; right: 50%; transform: translateX(50%); max-width: 95%; }
+            
+            body.has-notice .global-live-indicator-box { top: 50px; }
+            body.has-notice .social-box { top: 50px; }
+            body.has-notice .server-box { top: auto; bottom: 80px; }
+
+            .global-live-badge { height: 28px; padding: 0 10px; font-size: 11px; }
+            .vjs-view-counter{padding:0 8px!important;font-size:11px!important;height:28px!important;margin-left:2px!important}
+            .locker-box{padding:40px 25px}.locker-box h2{font-size:22px}.locker-box p{font-size:15px}
+        }
+    </style>
+</head>
+<body >
+
+
+<div id="content-locker">
+    <div class="locker-box">
+        <div class="lock-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </div>
+        <h2>স্ট্রিমিং আনলক করুন! 👇👇👇</h2>
+        <p>আমাদের নতুন ফেসবুক পেজটি ফলো করে এক্ষুনি আনলক করুন প্রিমিয়াম লাইভ স্ট্রিমিং!</p>
+        <button id="fbLockerBtn" class="locker-fb-btn" onclick="startUnlockProcess()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/></svg>
+            ফেসবুক পেজ ফলো করুন
+        </button>
+        <div id="lockerCountdown" class="countdown-text">ভেরিফাই হচ্ছে... <span id="countNumber">৫</span> সেকেন্ড</div>
+    </div>
+</div>
+
+<div class="social-box" id="socialWidget">
+    <button class="close-social" onclick="document.getElementById('socialWidget').style.display='none';">&times;</button>
+    
+</div>
+
+<div class="server-box">
+                    <button id="btn-0" class="server-btn badge-hd active" onclick="changeServer('https://prod-cdn01-live.toffeelive.com/live/FIFA-2026/sst/0/master_1750.m3u8?hdntl=Expires=1782752427~_GO=Generated~URLPrefix=aHR0cHM6Ly9wcm9kLWNkbjAxLWxpdmUudG9mZmVlbGl2ZS5jb20~Signature=AVXEwvdkVLnF_1m2Dju5_Xgh1D-kL5L0X8ufa91GQfkVr3DjRjxYfYqbnR4ALyZPp8vwBrwDhOgbfcF3q36IERFRSWsE', 0)">
+            Server 1        </button>
+                    <button id="btn-1" class="server-btn badge-hd " onclick="changeServer('https://flive.pochonderbazarbd.workers.dev/', 1)">
+            Server 2        </button>
+                    <button id="btn-2" class="server-btn badge-hd " onclick="changeServer('https://cdn011.viaplus.site/fox-usa.m3u8', 2)">
+            Server 3        </button>
+                    <button id="btn-3" class="server-btn badge-hd " onclick="changeServer('https://cdn011.viaplus.site/tsn1-ca.m3u8', 3)">
+            Server 4        </button>
+                    <button id="btn-4" class="server-btn badge-4k " onclick="changeServer('https://cdn011.viaplus.site/fox4k-usa.m3u8', 4)">
+            Server 5        </button>
+    </div>
+
+<div class="global-live-indicator-box" id="liveIndicator">
+    <div class="global-live-badge">ANURAG TV LIVE</div>
+        <div class="vjs-view-counter" title="Watching Now">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+        <span id="liveViewerCount"></span>
+    </div>
+    </div>
+
+<div id="vjs-wrapper">
+    <video id="live-player" class="video-js vjs-default-skin vjs-big-play-centered" controls autoplay muted playsinline preload="metadata">
+        <source src="https://prod-cdn01-live.toffeelive.com/live/FIFA-2026/sst/0/master_1750.m3u8?hdntl=Expires=1782752427~_GO=Generated~URLPrefix=aHR0cHM6Ly9wcm9kLWNkbjAxLWxpdmUudG9mZmVlbGl2ZS5jb20~Signature=AVXEwvdkVLnF_1m2Dju5_Xgh1D-kL5L0X8ufa91GQfkVr3DjRjxYfYqbnR4ALyZPp8vwBrwDhOgbfcF3q36IERFRSWsE" type="application/x-mpegURL">
+    </video>
+</div>
+
+<div id="fluid-wrapper">
+    <video id="fluid-player" controls autoplay muted playsinline></video>
+</div>
+
+<script defer src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script defer src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
+
+<script defer>
+    function dismissNotice() {
+        var notice = document.getElementById('sticky-header-notice');
+        if (notice) notice.style.display = 'none';
+        document.body.classList.remove('has-notice');
+    }
+
+    const isLockerEnabled = false;
+    const isCounterEnabled = true;
+    const baseViewsAmount = 6366;
+
+    const isTV = /SmartTV|Tizen|WebOS|BRAVIA|Android TV|AppleTV|Roku|TV/i.test(navigator.userAgent);
+    if (isTV) {
+        localStorage.setItem('isPremiumUnlocked', 'true');
+    }
+
+    const nukePage=()=>{document.body.innerHTML='',document.body.style.backgroundColor='black',document.head.innerHTML=''};
+    document.addEventListener('contextmenu',e=>e.preventDefault());
+    document.addEventListener('keydown',e=>{if(123===e.keyCode||(e.ctrlKey&&e.shiftKey&&(73===e.keyCode||74===e.keyCode||67===e.keyCode))||(e.ctrlKey&&85===e.keyCode))e.preventDefault(),nukePage()});
+    setInterval(()=>{const e=performance.now();debugger;performance.now()-e>100&&nukePage()},500);
+    window.addEventListener('resize',()=>{const e=window.outerWidth-window.innerWidth,n=window.outerHeight-window.innerHeight;(e>160||n>160)&&nukePage()});
+    const devtoolsDetector=new Image;Object.defineProperty(devtoolsDetector,'id',{get:function(){nukePage()}});console.log('%c',devtoolsDetector);
+
+    function startUnlockProcess(){
+        window.open('https://facebook.com/tahmidx.tech2','_blank'),document.getElementById('fbLockerBtn').style.display='none';
+        let e=document.getElementById('lockerCountdown');e.style.display='block';
+        let n=5,t=['০','১','২','৩','৪','৫'];
+        document.getElementById('countNumber').innerText=t[n];
+        let o=setInterval((function(){document.hidden||!document.hasFocus()?(n--,n>=0&&(e.innerHTML=`ভেরিফাই হচ্ছে... <span id="countNumber">${t[n]}</span> সেকেন্ড`),n<=0&&(clearInterval(o),localStorage.setItem('isPremiumUnlocked','true'),location.reload())):e.innerHTML=`কাউন্টডাউন পজ! আবার ফেসবুক ট্যাবে যান... <span id="countNumber">${t[n]}</span>`}),1e3)
+    }
+
+    var hlsFluid = null;
+    var fluidPlayerInstance = null;
+
+    function initFluidPlayer(url) {
+        if(!fluidPlayerInstance) {
+            fluidPlayerInstance = fluidPlayer('fluid-player', {
+                layoutControls: { fillToContainer: true, primaryColor: "#ff2a2a", autoPlay: true, mute: true, controlBar: { autoHide: true } }
+            });
+        }
+        var videoEl = document.getElementById('fluid-player');
+        if (Hls.isSupported()) {
+            if(hlsFluid) hlsFluid.destroy();
+            hlsFluid = new Hls({maxBufferLength: 30});
+            hlsFluid.loadSource(url);
+            hlsFluid.attachMedia(videoEl);
+            hlsFluid.on(Hls.Events.MANIFEST_PARSED, function() {
+                if (!isLockerEnabled || localStorage.getItem('isPremiumUnlocked')) videoEl.play().catch(e=>console.log(e));
+            });
+        } else if (videoEl.canPlayType('application/vnd.apple.mpegurl')) {
+            videoEl.src = url;
+            if (!isLockerEnabled || localStorage.getItem('isPremiumUnlocked')) videoEl.play();
+        }
+    }
+
+    window.addEventListener('load', function() {
+        var serverList=["https:\/\/prod-cdn01-live.toffeelive.com\/live\/FIFA-2026\/sst\/0\/master_1750.m3u8?hdntl=Expires=1782752427~_GO=Generated~URLPrefix=aHR0cHM6Ly9wcm9kLWNkbjAxLWxpdmUudG9mZmVlbGl2ZS5jb20~Signature=AVXEwvdkVLnF_1m2Dju5_Xgh1D-kL5L0X8ufa91GQfkVr3DjRjxYfYqbnR4ALyZPp8vwBrwDhOgbfcF3q36IERFRSWsE","https:\/\/flive.pochonderbazarbd.workers.dev\/","https:\/\/cdn011.viaplus.site\/fox-usa.m3u8","https:\/\/cdn011.viaplus.site\/tsn1-ca.m3u8","https:\/\/cdn011.viaplus.site\/fox4k-usa.m3u8"];
+        var currentServerIndex=0, isSwitching=!1;
+        
+        // ==========================================
+        // Video.js Initialization with CC and PiP
+        // ==========================================
+        var player = videojs('live-player', {
+            html5: { vhs: { overrideNative: !0, allowCrossfileNaming: !0 } },
+            muted: !0,
+            controlBar: {
+                children: [
+                    'playToggle',
+                    'volumePanel',
+                    'subsCapsButton', // Adds Closed Captions Button
+                    'pictureInPictureToggle', // Adds PiP Mode Button
+                    'progressControl',
+                    'fullscreenToggle'
+                ]
+            }
+        });
+        
+        player.ready(function(){
+            if (!isLockerEnabled || localStorage.getItem('isPremiumUnlocked')) {
+                var lockerEl = document.getElementById('content-locker');
+                if(lockerEl) lockerEl.style.display='none';
+                player.muted(!0);
+                player.play();
+            } else {
+                var lockerEl = document.getElementById('content-locker');
+                if(lockerEl) lockerEl.style.display='flex';
+                player.pause();
+            }
+            
+            if (isCounterEnabled) {
+                let n = baseViewsAmount + Math.floor(500 * Math.random());
+                const t = document.getElementById('liveViewerCount');
+                function o() {
+                    n += Math.floor(300 * Math.random()) - 80;
+                    if(t) t.innerText = n >= 1e3 ? (n / 1e3).toFixed(1) + "K" : n.toString();
+                    setTimeout(o, 3e3 + 4e3 * Math.random());
+                }
+                o();
+            }
+        });
+
+        window.changeServer=function(e,n){
+            if(0===n&&0!==currentServerIndex)return void window.location.reload();
+            if(n === currentServerIndex) return;
+            
+            currentServerIndex=n, isSwitching=!1;
+            document.querySelectorAll('.server-btn').forEach(btn=>btn.classList.remove('active'));
+            var t=document.getElementById('btn-'+n);
+            if(t) t.classList.add('active');
+
+            if (n < 4) {
+                document.getElementById('fluid-wrapper').style.display = 'none';
+                document.getElementById('vjs-wrapper').style.display = 'block';
+                var fplayer = document.getElementById('fluid-player');
+                if(fplayer && fplayer.pause) fplayer.pause();
+                
+                player.error(null);
+                player.pause();
+                player.src({src:e,type:'application/x-mpegURL'});
+                player.load();
+                player.play().then(function(){isSwitching=!1}).catch(function(e){console.log("Autoplay failed:",e);setTimeout(function(){isSwitching=!1},2500)});
+            } else {
+                document.getElementById('vjs-wrapper').style.display = 'none';
+                document.getElementById('fluid-wrapper').style.display = 'block';
+                player.pause();
+                
+                initFluidPlayer(e);
+                isSwitching = !1;
+            }
+        };
+
+        player.on('error',function(){
+            if(isSwitching)return;
+            var e=currentServerIndex+1;
+            e<serverList.length&&(isSwitching=!0,setTimeout(function(){changeServer(serverList[e],e)},3e3))
+        });
+    });
+</script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"1f7d8a56c34342eeb554f35d27094085","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
